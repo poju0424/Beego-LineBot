@@ -1,2 +1,2 @@
-web: bee run
+web: Beego-LineBot
 

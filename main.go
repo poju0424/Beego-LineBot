@@ -2,13 +2,16 @@ package main
 
 import (
 	_ "hello/routers"
-
-	"hello/models"
+	"os"
+	"strconv"
 
 	"github.com/astaxie/beego"
 )
 
 func main() {
-	models.GetRateInfo("JPY")
+	port, err := strconv.Atoi(os.Getenv("PORT"))
+	if err == nil {
+		beego.BConfig.Listen.HTTPPort = port
+	}
 	beego.Run()
 }
