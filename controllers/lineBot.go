@@ -32,5 +32,6 @@ func (this *LineBotController) Post() {
 	// events, err := bot.ParseRequest(r)
 	// fmt.Print(events)
 	fmt.Print(this.Ctx.Input.Param("id"))
+	fmt.Print("5566")
 
 }
