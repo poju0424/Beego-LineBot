@@ -49,6 +49,12 @@
 			"path": "github.com/astaxie/beego/utils",
 			"revision": "323a1c4214101331a4b71922c23d19b7409ac71f",
 			"revisionTime": "2017-03-06T13:59:04Z"
+		},
+		{
+			"checksumSHA1": "7fW/xdzVY+E3lG9fPPqd6J2oo68=",
+			"path": "github.com/line/line-bot-sdk-go",
+			"revision": "b52b3bb5f30e629d59bf099e46f0cef2714c643f",
+			"revisionTime": "2017-03-17T07:33:38Z"
 		}
 	],
 	"rootPath": "hello"
