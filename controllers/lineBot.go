@@ -1,8 +1,10 @@
 package controllers
 
 import (
-	"encoding/json"
 	"fmt"
+	"log"
+	"net/http"
+	"os"
 
 	"github.com/astaxie/beego"
 	"github.com/line/line-bot-sdk-go/linebot"
@@ -26,17 +28,11 @@ type LineMsg struct {
 
 var bot *linebot.Client
 
-func (this *LineBotController) Post() {
-	// msg := LineMsg{}
-	// if err := c.ParseForm(&msg); err != nil {
-	// 	Debug.CheckErr(err)
-	// }
-	// fmt.Print(msg)
-	var ob LineMsg
-	json.Unmarshal(this.Ctx.Input.RequestBody, &ob)
-	// objectid := models.AddOne(ob)
-	// this.Data["json"] = map[string]interface{}{"ObjectId": objectid}
-	// this.ServeJSON()
-	fmt.Print(ob)
+func (this *LineBotController) Post(r *http.Request) {
+	var err error
+	bot, err = linebot.New(os.Getenv("ChannelSecret"), os.Getenv("ChannelAccessToken"))
+	log.Println("Bot:", bot, " err:", err)
+	events, err := bot.ParseRequest(r)
+	fmt.Print(events)
 
 }
