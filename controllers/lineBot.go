@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"hello/Util/Debug"
 
 	"github.com/astaxie/beego"
 	"github.com/line/line-bot-sdk-go/linebot"
@@ -28,7 +29,7 @@ var bot *linebot.Client
 func (c *LineBotController) Post() {
 	msg := LineMsg{}
 	if err := c.ParseForm(&msg); err != nil {
-		//handle error
+		Debug.CheckErr(err)
 	}
 	fmt.Print(msg)
 	//func callbackHandler(w http.ResponseWriter, r *http.Request) {
