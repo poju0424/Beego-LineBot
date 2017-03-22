@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"fmt"
-
 	"github.com/astaxie/beego"
 	"github.com/line/line-bot-sdk-go/linebot"
 )
@@ -31,8 +29,8 @@ func (this *LineBotController) Post() {
 	// log.Println("Bot:", bot, " err:", err)
 	// events, err := bot.ParseRequest(r)
 	// fmt.Print(events)
-	fmt.Print("5566")
-	fmt.Print(this.Ctx.Input.Param("result"))
-	fmt.Print("5566")
+	// fmt.Print("5566")
+	// fmt.Print(this.Ctx.Input.Param("result"))
+	// fmt.Print("5566")
 
 }
