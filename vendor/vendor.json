@@ -55,6 +55,24 @@
 			"path": "github.com/line/line-bot-sdk-go",
 			"revision": "b52b3bb5f30e629d59bf099e46f0cef2714c643f",
 			"revisionTime": "2017-03-17T07:33:38Z"
+		},
+		{
+			"checksumSHA1": "6/Arsx1Waw7hg6gRPudXGJ3VX7s=",
+			"path": "github.com/line/line-bot-sdk-go/linebot",
+			"revision": "b52b3bb5f30e629d59bf099e46f0cef2714c643f",
+			"revisionTime": "2017-03-17T07:33:38Z"
+		},
+		{
+			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
+			"path": "golang.org/x/net/context",
+			"revision": "a6577fac2d73be281a500b310739095313165611",
+			"revisionTime": "2017-03-08T20:54:49Z"
+		},
+		{
+			"checksumSHA1": "WHc3uByvGaMcnSoI21fhzYgbOgg=",
+			"path": "golang.org/x/net/context/ctxhttp",
+			"revision": "a6577fac2d73be281a500b310739095313165611",
+			"revisionTime": "2017-03-08T20:54:49Z"
 		}
 	],
 	"rootPath": "hello"
