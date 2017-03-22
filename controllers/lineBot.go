@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/astaxie/beego"
 	"github.com/line/line-bot-sdk-go/linebot"
 )
@@ -9,10 +11,27 @@ type LineBotController struct {
 	beego.Controller
 }
 
+type LineMsg struct {
+	Id              string `form:"-"`
+	ContentType     int    `form:"username"`
+	From            string `form:"age"`
+	CreatedTime     int
+	To              []string
+	ToType          int
+	ContentMetadata interface{}
+	text            string
+	location        interface{}
+}
+
 var bot *linebot.Client
 
-func (c *LineBotController) Get() {
-	//git@github.com:poju0424/Beego-LineBot.git
+func (c *LineBotController) Post() {
+	msg := LineMsg{}
+	if err := c.ParseForm(&msg); err != nil {
+		//handle error
+	}
+	fmt.Print(msg)
+	//func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	// events, err := bot.ParseRequest(r)
 	// if err != nil {
 	// 	if err == linebot.ErrInvalidSignature {
