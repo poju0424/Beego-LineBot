@@ -13,5 +13,6 @@ func main() {
 	if err == nil {
 		beego.BConfig.Listen.HTTPPort = port
 	}
+	beego.BConfig.WebConfig.AutoRender = false
 	beego.Run()
 }
