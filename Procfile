@@ -1,2 +1,1 @@
-web: bee run
-
+web: beegolinebot
