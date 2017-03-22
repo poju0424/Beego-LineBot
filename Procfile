@@ -1,2 +1,2 @@
-web: bee run
+web: main.go
 
