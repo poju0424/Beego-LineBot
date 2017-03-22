@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
-	"hello/Util/Debug"
 
 	"github.com/astaxie/beego"
 	"github.com/line/line-bot-sdk-go/linebot"
@@ -26,29 +26,17 @@ type LineMsg struct {
 
 var bot *linebot.Client
 
-func (c *LineBotController) Post() {
-	msg := LineMsg{}
-	if err := c.ParseForm(&msg); err != nil {
-		Debug.CheckErr(err)
-	}
-	fmt.Print(msg)
-	//func callbackHandler(w http.ResponseWriter, r *http.Request) {
-	// events, err := bot.ParseRequest(r)
-	// if err != nil {
-	// 	if err == linebot.ErrInvalidSignature {
-	// 		w.WriteHeader(400)
-	// 	} else {
-	// 		w.WriteHeader(500)
-	// 	}
-	// 	return
+func (this *LineBotController) Post() {
+	// msg := LineMsg{}
+	// if err := c.ParseForm(&msg); err != nil {
+	// 	Debug.CheckErr(err)
 	// }
-	// for _, event := range events {
-	// 	switch message := event.Message.(type) {
-	// 	case *linebot.TextMessage:
-	// 		bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text)).Do()
-	// 	}
-	// }
-	// c.Data["Website"] = "beego.me"
-	// c.Data["Email"] = "astaxie@gmail.com"
-	// c.TplName = "index.tpl"
+	// fmt.Print(msg)
+	var ob LineMsg
+	json.Unmarshal(this.Ctx.Input.RequestBody, &ob)
+	// objectid := models.AddOne(ob)
+	// this.Data["json"] = map[string]interface{}{"ObjectId": objectid}
+	// this.ServeJSON()
+	fmt.Print(ob)
+
 }

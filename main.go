@@ -14,5 +14,6 @@ func main() {
 		beego.BConfig.Listen.HTTPPort = port
 	}
 	beego.BConfig.WebConfig.AutoRender = false
+	beego.BConfig.CopyRequestBody = true
 	beego.Run()
 }
