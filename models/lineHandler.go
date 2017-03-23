@@ -47,7 +47,7 @@ func ParseTextMsg(msg string) (subMsg string, isValid bool) {
 	log.Print(re)
 	// Debug.CheckErr(err)
 	// log.Print(matched)
-	subMsg = re[0]
+	subMsg = re[1]
 	isValid = true
 	return
 }
