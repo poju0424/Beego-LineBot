@@ -37,7 +37,9 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(GetRateInfo(message.Text))).Do(); err != nil {
 				// 	log.Print(err)
 				// }
+
 				msg, isValid := spliteTextMsg(message.Text)
+				log.Print(msg)
 				if isValid {
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(GetRateInfo(msg))).Do(); err != nil {
 						log.Print(err)
