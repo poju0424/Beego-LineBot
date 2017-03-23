@@ -17,18 +17,12 @@ func GetRateInfo(request string) (message string) {
 
 	r := bytes.NewReader(body)
 	scanner := bufio.NewScanner(r)
-	// var currency, cashBuy, cashSell, rateBuy, rateSell string
 	for scanner.Scan() {
 		line := scanner.Text()
-		matched, err := regexp.MatchString("("+request+")", line)
+		matched, err := regexp.MatchString("^("+request+")", line)
 		Debug.CheckErr(err)
 		if matched {
 			arr := strings.Split(line, ",")
-			// currency = arr[0]
-			// cashBuy = arr[2]
-			// cashSell = arr[3]
-			// rateBuy = arr[12]
-			// rateSell = arr[13]
 			message = "台銀" + arr[0] + "即時匯率:" +
 				"\n 現金買入:" + arr[2] +
 				"\n 現金賣出:" + arr[3] +
@@ -40,12 +34,6 @@ func GetRateInfo(request string) (message string) {
 	if len(message) <= 0 {
 		message = "404"
 	}
-	// message = "台銀" + currency + "即時匯率:" +
-	// 	"\n 現金買入:" + cashBuy +
-	// 	"\n 現金賣出:" + cashSell +
-	// 	"\n 即期買入:" + rateBuy +
-	// 	"\n 即期賣出:" + rateSell +
-	// 	"\n 更新時間(" + datetime + ")"
 	return
 }
 
