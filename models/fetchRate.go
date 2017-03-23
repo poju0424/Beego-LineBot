@@ -29,6 +29,8 @@ func GetRateInfo(request string) (message string) {
 			cashSell = arr[3]
 			rateBuy = arr[12]
 			rateSell = arr[13]
+		} else {
+			return "404"
 		}
 
 	}

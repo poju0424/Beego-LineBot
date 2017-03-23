@@ -1,6 +1,7 @@
 package models
 
 import (
+	"hello/models"
 	"log"
 	"net/http"
 	"os"
@@ -13,10 +14,9 @@ var bot *linebot.Client
 type LineHandler struct{}
 
 func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-
 	var err error
 	bot, err = linebot.New(os.Getenv("ChannelSecret"), os.Getenv("ChannelAccessToken"))
-	log.Println("Bot:", bot, " err:", err)
+	// log.Println("Bot:", bot, " err:", err)
 
 	events, err := bot.ParseRequest(r)
 
@@ -33,7 +33,8 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK!")).Do(); err != nil {
+				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK!")).Do(); err != nil {
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(models.GetRateInfo(message.Text))).Do(); err != nil {
 					log.Print(err)
 				}
 			}
