@@ -32,7 +32,7 @@ func GetRateInfo(request string) (message string) {
 		}
 	}
 	if len(message) <= 0 {
-		message = "404"
+		message = ""
 	}
 	return
 }

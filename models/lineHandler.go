@@ -34,20 +34,27 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK!")).Do(); err != nil {
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(GetRateInfo(message.Text))).Do(); err != nil {
-					log.Print(err)
+				// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(GetRateInfo(message.Text))).Do(); err != nil {
+				// 	log.Print(err)
+				// }
+				msg, isValid := spliteTextMsg(message.Text)
+				if isValid {
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(GetRateInfo(msg))).Do(); err != nil {
+						log.Print(err)
+					}
 				}
 			}
 		}
 	}
 }
 
-func ParseTextMsg(msg string) (subMsg string, isValid bool) {
-	var re = regexp.MustCompile(`^\&&(.*)`).Split(msg, 5)
-	log.Print(re)
-	// Debug.CheckErr(err)
-	// log.Print(matched)
-	subMsg = re[1]
-	isValid = true
+func spliteTextMsg(msg string) (subMsg string, isValid bool) {
+	r, err := regexp.Compile("^&&(.*)")
+	subMsg = r.FindString(subMsg)
+	if err == nil {
+		isValid = true
+	} else {
+		isValid = false
+	}
 	return
 }
