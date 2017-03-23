@@ -3,6 +3,7 @@ package main
 import (
 	"hello/models"
 	_ "hello/routers"
+	"log"
 	"os"
 	"strconv"
 
@@ -10,7 +11,8 @@ import (
 )
 
 func main() {
-	msg, valid := models.ParseTextMsg("&&JPY")
+	msg, _ := models.ParseTextMsg("&&JPY")
+	log.Print(msg)
 
 	port, err := strconv.Atoi(os.Getenv("PORT"))
 	if err == nil {
