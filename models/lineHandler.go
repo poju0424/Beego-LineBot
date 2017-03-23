@@ -43,8 +43,11 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func ParseTextMsg(msg string) (subMsg string, isValid bool) {
-	var re = regexp.MustCompile(`^\&&(.*)`).Split(msg, 5)
+	var re = regexp.MustCompile(`^\&&(.*)`).String()
 	log.Print(re)
 	// Debug.CheckErr(err)
 	// log.Print(matched)
+	subMsg = re
+	isValid = true
+	return
 }
