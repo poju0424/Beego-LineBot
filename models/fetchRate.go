@@ -3,6 +3,7 @@ package models
 import (
 	"bufio"
 	"bytes"
+	"fmt"
 	"hello/Util/Debug"
 	"io/ioutil"
 	"net/http"
@@ -22,6 +23,7 @@ func GetRateInfo(request string) (message string) {
 		line := scanner.Text()
 		matched, err := regexp.MatchString("("+request+")", line)
 		Debug.CheckErr(err)
+		fmt.Print(request)
 		if matched {
 			arr := strings.Split(line, ",")
 			currency = arr[0]
