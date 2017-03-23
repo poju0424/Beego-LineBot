@@ -13,6 +13,7 @@ import (
 func main() {
 	msg, _ := models.SpliteTextMsg("&&JPY")
 	log.Print(msg)
+	log.Print("msg")
 
 	port, err := strconv.Atoi(os.Getenv("PORT"))
 	if err == nil {
