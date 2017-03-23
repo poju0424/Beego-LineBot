@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
@@ -39,4 +40,11 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
+}
+
+func ParseTextMsg(msg string) (subMsg string, isValid bool) {
+	var re = regexp.MustCompile(`^\&&(.*)`).Split(msg, 5)
+	log.Print(re)
+	// Debug.CheckErr(err)
+	// log.Print(matched)
 }

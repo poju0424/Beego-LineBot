@@ -1,6 +1,7 @@
 package main
 
 import (
+	"hello/models"
 	_ "hello/routers"
 	"os"
 	"strconv"
@@ -9,6 +10,8 @@ import (
 )
 
 func main() {
+	msg, valid := models.ParseTextMsg("&&JPY")
+
 	port, err := strconv.Atoi(os.Getenv("PORT"))
 	if err == nil {
 		beego.BConfig.Listen.HTTPPort = port
