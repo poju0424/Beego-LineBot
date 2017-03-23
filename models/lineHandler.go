@@ -38,7 +38,7 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				// 	log.Print(err)
 				// }
 
-				msg, isValid := spliteTextMsg(message.Text)
+				msg, isValid := SpliteTextMsg(message.Text)
 				log.Print(msg)
 				if isValid {
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(GetRateInfo(msg))).Do(); err != nil {
@@ -50,7 +50,7 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func spliteTextMsg(msg string) (subMsg string, isValid bool) {
+func SpliteTextMsg(msg string) (subMsg string, isValid bool) {
 	r, err := regexp.Compile("^&&(.*)")
 	subMsg = r.FindString(subMsg)
 	if err == nil {
