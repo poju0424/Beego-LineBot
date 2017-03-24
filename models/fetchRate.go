@@ -23,10 +23,13 @@ func getRateInfo(request string) (message []string) {
 	scanner := bufio.NewScanner(r)
 
 	for scanner.Scan() {
+		log.Print(request)
+		log.Print(code)
 		line := scanner.Text()
 		matched, err := regexp.MatchString("^("+code+")", line)
 		Debug.CheckErr(err)
 		if matched {
+			log.Print("co22222de")
 			arr := strings.Split(line, ",")
 			// message = "台銀" + name + "即時匯率:" +
 			// 	"\n 現金買入:" + arr[2] +
