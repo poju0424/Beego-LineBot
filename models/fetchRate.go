@@ -61,6 +61,39 @@ func GetTimeFromFileName(header http.Header) (output string) {
 	return
 }
 
-func ConnectDB(currency string, cashbuy, cashsell, ratebuy, ratesell float64) {
+func connectDB(currency string, cashbuy, cashsell, ratebuy, ratesell float64) {
 
+}
+
+func FuzzySearch(msg string) (code, name string) {
+	searchList := [][]string{}
+	searchList = append(searchList, []string{"日", "jpy", "日圓"})
+	searchList = append(searchList, []string{"jp", "jpy", "日圓"})
+	searchList = append(searchList, []string{"美", "usd", "美金"})
+	searchList = append(searchList, []string{"美", "usd", "美金"})
+	searchList = append(searchList, []string{"人民", "cny", "人民幣"})
+	searchList = append(searchList, []string{"rmb", "cny", "人民幣"})
+	searchList = append(searchList, []string{"cn", "cny", "人民幣"})
+	searchList = append(searchList, []string{"歐", "eur", "歐元"})
+	searchList = append(searchList, []string{"eu", "eur", "歐元"})
+	searchList = append(searchList, []string{"港", "hkd", "港幣"})
+	searchList = append(searchList, []string{"hk", "hkd", "港幣"})
+	searchList = append(searchList, []string{"kr", "krw", "韓元"})
+	searchList = append(searchList, []string{"韓", "krw", "韓元"})
+
+	max := len(searchList)
+	var found = false
+	for i := 0; i < max; i++ {
+		if strings.Contains(msg, searchList[i][0]) {
+			if found {
+				code = "404"
+				name = "more than one key word have found"
+			} else {
+				found = true
+			}
+			code = strings.ToUpper(searchList[i][1])
+			name = searchList[i][2]
+		}
+	}
+	return
 }
