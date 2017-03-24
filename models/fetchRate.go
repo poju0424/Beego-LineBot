@@ -33,7 +33,7 @@ func getRateInfo(request string) (title, content, currency string) {
 			// 	"\n 即期賣出:" + arr[13] +
 			// 	"\n 更新時間(" + datetime + ")"
 			title = "台銀 " + name + " 即時匯率(" + datetime + "):"
-			content = "現金買入:" + arr[2] +
+			content = "\n現金買入:" + arr[2] +
 				"\n 現金賣出:" + arr[3] +
 				"\n 即期買入:" + arr[12] +
 				"\n 即期賣出:" + arr[13]
@@ -50,7 +50,7 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 		return nil
 	}
 	template := linebot.NewButtonsTemplate(
-		"", title, content,
+		"", "", title+content,
 		linebot.NewURITemplateAction("Go to line.me", "https://line.me"),
 		// linebot.NewPostbackTemplateAction("言 hello2", "hello こんにちは", "hello こんにちは"),
 		linebot.NewMessageTemplateAction("重新查詢", "&&"+name),
