@@ -38,11 +38,11 @@ func getRateInfo(request string) (title, content, currency string) {
 			// 	"\n 即期賣出:" + arr[13] +
 			// 	"\n 更新時間(" + datetime + ")"
 			title = "台銀" + name + "即時匯率:"
-			content = "\n 現金買入:" + arr[2] +
+			content = "現金買入:" + arr[2] +
 				"\n 現金賣出:" + arr[3] +
 				"\n 即期買入:" + arr[12] +
 				"\n 即期賣出:" + arr[13] +
-				"\n 更新時間(" + datetime + ")"
+				"\n " + datetime
 			currency = name
 		}
 	}
@@ -62,7 +62,7 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 		return nil
 	}
 	template := linebot.NewButtonsTemplate(
-		"", "", title+content,
+		"", title, content,
 		linebot.NewURITemplateAction("Go to Taiwan Bank Website", "http://rate.bot.com.tw/xrt?Lang=zh-TW"),
 		linebot.NewPostbackTemplateAction("Find nearby branch", "回傳SERVER值", "不跟你說"),
 		linebot.NewMessageTemplateAction("Query rate again", name),
