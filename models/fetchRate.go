@@ -54,6 +54,9 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	// var template linebot.Template
 	log.Print(request)
 	msg := getRateInfo(request)
+	log.Print(msg[0])
+	log.Print(msg[1])
+	log.Print(msg[2])
 	if msg == nil {
 		return nil
 	}
