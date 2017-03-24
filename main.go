@@ -1,9 +1,7 @@
 package main
 
 import (
-	"hello/models"
 	_ "hello/routers"
-	"log"
 	"os"
 	"strconv"
 
@@ -11,11 +9,6 @@ import (
 )
 
 func main() {
-
-	code, name := models.FuzzySearch("123")
-	log.Print(code + name)
-	log.Print("code + name")
-
 	port, err := strconv.Atoi(os.Getenv("PORT"))
 	if err == nil {
 		beego.BConfig.Listen.HTTPPort = port

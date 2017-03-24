@@ -14,16 +14,18 @@ import (
 func GetRateInfo(request string) (message string) {
 	body, header := ReadFile()
 	datetime := GetTimeFromFileName(header)
+	code, name := fuzzySearch(request)
 
 	r := bytes.NewReader(body)
 	scanner := bufio.NewScanner(r)
+
 	for scanner.Scan() {
 		line := scanner.Text()
-		matched, err := regexp.MatchString("^("+request+")", line)
+		matched, err := regexp.MatchString("^("+code+")", line)
 		Debug.CheckErr(err)
 		if matched {
 			arr := strings.Split(line, ",")
-			message = "台銀" + arr[0] + "即時匯率:" +
+			message = "台銀" + name + "即時匯率:" +
 				"\n 現金買入:" + arr[2] +
 				"\n 現金賣出:" + arr[3] +
 				"\n 即期買入:" + arr[12] +
@@ -65,12 +67,12 @@ func connectDB(currency string, cashbuy, cashsell, ratebuy, ratesell float64) {
 
 }
 
-func FuzzySearch(msg string) (code, name string) {
+func fuzzySearch(msg string) (code, name string) {
 	searchList := [][]string{}
 	searchList = append(searchList, []string{"日", "jpy", "日圓"})
 	searchList = append(searchList, []string{"jp", "jpy", "日圓"})
 	searchList = append(searchList, []string{"美", "usd", "美金"})
-	searchList = append(searchList, []string{"美", "usd", "美金"})
+	searchList = append(searchList, []string{"us", "usd", "美金"})
 	searchList = append(searchList, []string{"人民", "cny", "人民幣"})
 	searchList = append(searchList, []string{"rmb", "cny", "人民幣"})
 	searchList = append(searchList, []string{"cn", "cny", "人民幣"})
@@ -83,11 +85,14 @@ func FuzzySearch(msg string) (code, name string) {
 
 	max := len(searchList)
 	var found = false
+	code = "404"
+	name = "not found any match key word"
 	for i := 0; i < max; i++ {
-		if strings.Contains(msg, searchList[i][0]) {
+		if strings.Contains(strings.ToLower(msg), searchList[i][0]) {
 			if found {
 				code = "404"
 				name = "more than one key word have found"
+				return
 			} else {
 				found = true
 			}
