@@ -52,6 +52,9 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	var AltText = "alttext"
 	// var template linebot.Template
 	msg := getRateInfo(request)
+	if msg == nil {
+		return nil
+	}
 	template := linebot.NewButtonsTemplate(
 		"", msg[0], msg[1],
 		linebot.NewURITemplateAction("Go to Taiwan Bank Website", "http://rate.bot.com.tw/xrt?Lang=zh-TW"),
