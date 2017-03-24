@@ -23,8 +23,8 @@ func getRateInfo(request string) (message []string) {
 	scanner := bufio.NewScanner(r)
 
 	for scanner.Scan() {
-		log.Print(request)
-		log.Print(code)
+		// log.Print(request)
+		log.Print("SCAN+" + code)
 		line := scanner.Text()
 		matched, err := regexp.MatchString("^("+code+")", line)
 		Debug.CheckErr(err)
@@ -49,6 +49,7 @@ func getRateInfo(request string) (message []string) {
 	if len(message) <= 0 {
 		return nil
 	}
+	log.Print(message)
 	return
 }
 
