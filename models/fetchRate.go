@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"hello/Util/Debug"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"regexp"
 	"strings"
@@ -18,18 +17,14 @@ func getRateInfo(request string) (title, content, currency string) {
 	body, header := ReadFile()
 	datetime := GetTimeFromFileName(header)
 	code, name := fuzzySearch(request)
-	log.Print(request)
 	r := bytes.NewReader(body)
 	scanner := bufio.NewScanner(r)
 
 	for scanner.Scan() {
-		// log.Print(request)
-		log.Print("SCAN+" + code)
 		line := scanner.Text()
 		matched, err := regexp.MatchString("^("+code+")", line)
 		Debug.CheckErr(err)
 		if matched {
-			log.Print("co22222de")
 			arr := strings.Split(line, ",")
 			// message = "台銀" + name + "即時匯率:" +
 			// 	"\n 現金買入:" + arr[2] +
@@ -38,11 +33,7 @@ func getRateInfo(request string) (title, content, currency string) {
 			// 	"\n 即期賣出:" + arr[13] +
 			// 	"\n 更新時間(" + datetime + ")"
 			title = "台銀" + name + "即時匯率:"
-			content = "現金買入:" + arr[2] +
-				"\n 現金賣出:" + arr[3] +
-				"\n 即期買入:" + arr[12] +
-				"\n 即期賣出:" + arr[13] +
-				"\n " + datetime
+			content = "現金賣出匯率:" + arr[3] + "\n 更新時間:" + datetime
 			currency = name
 		}
 	}
@@ -51,13 +42,7 @@ func getRateInfo(request string) (title, content, currency string) {
 
 func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	var AltText = "alttext"
-	// var template linebot.Template
-	log.Print("556666")
 	title, content, name := getRateInfo(request)
-	log.Print(title)
-	log.Print(content)
-	log.Print(name)
-
 	if len(title) <= 0 || len(content) <= 0 || len(name) <= 0 {
 		return nil
 	}
