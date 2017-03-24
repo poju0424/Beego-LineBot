@@ -13,7 +13,7 @@ import (
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
-func getRateInfo(request string) (title, content, currency string) {
+func getRateInfo(request string) (content, currency string) {
 	body, header := ReadFile()
 	datetime := GetTimeFromFileName(header)
 	code, name := fuzzySearch(request)
@@ -32,11 +32,11 @@ func getRateInfo(request string) (title, content, currency string) {
 			// 	"\n 即期買入:" + arr[12] +
 			// 	"\n 即期賣出:" + arr[13] +
 			// 	"\n 更新時間(" + datetime + ")"
-			title = "台銀 " + name + " 即時匯率(" + datetime + "):"
-			content = "\n現金買入:" + arr[2] +
+			content = "台銀 " + name + " 即時匯率:" +
+				"\n現金買入:" + arr[2] +
 				"\n 現金賣出:" + arr[3] +
 				"\n 即期買入:" + arr[12] +
-				"\n 即期賣出:" + arr[13]
+				"\n 即期賣出:" + arr[13] + datetime
 			currency = name
 		}
 	}
@@ -45,13 +45,13 @@ func getRateInfo(request string) (title, content, currency string) {
 
 func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	var AltText = "alttext"
-	title, content, name := getRateInfo(request)
-	if len(title) <= 0 || len(content) <= 0 || len(name) <= 0 {
+	content, name := getRateInfo(request)
+	if len(content) <= 0 || len(name) <= 0 {
 		return nil
 	}
 	template := linebot.NewButtonsTemplate(
-		"", "", title+content,
-		linebot.NewURITemplateAction("Go to line.me", "https://line.me"),
+		"", "", content,
+		linebot.NewURITemplateAction("Go to line.me", "http://goo.gl/ZCXw47"),
 		// linebot.NewPostbackTemplateAction("言 hello2", "hello こんにちは", "hello こんにちは"),
 		linebot.NewMessageTemplateAction("重新查詢", "&&"+name),
 	)
