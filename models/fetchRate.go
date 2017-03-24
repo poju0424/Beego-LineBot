@@ -52,8 +52,9 @@ func getRateInfo(request string) (message []string) {
 func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	var AltText = "alttext"
 	// var template linebot.Template
-	log.Print(request)
+	log.Print("556666")
 	msg := getRateInfo(request)
+	log.Print(msg)
 	log.Print(msg[0])
 	log.Print(msg[1])
 	log.Print(msg[2])
