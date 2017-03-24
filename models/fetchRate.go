@@ -47,11 +47,11 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 		return nil
 	}
 	template := linebot.NewButtonsTemplate(
-		"", title, "Hello, my button",
+		"", title, content,
 		linebot.NewURITemplateAction("Go to line.me", "https://line.me"),
 		linebot.NewPostbackTemplateAction("Say hello1", "hello こんにちは", ""),
 		linebot.NewPostbackTemplateAction("言 hello2", "hello こんにちは", "hello こんにちは"),
-		linebot.NewMessageTemplateAction("Say message", "Rice=米"),
+		linebot.NewMessageTemplateAction("重新查詢", "&&"+name),
 	)
 
 	templateMsg = linebot.NewTemplateMessage(AltText, template)
