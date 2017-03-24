@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"hello/Util/Debug"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"regexp"
 	"strings"
@@ -17,7 +18,7 @@ func getRateInfo(request string) (message []string) {
 	body, header := ReadFile()
 	datetime := GetTimeFromFileName(header)
 	code, name := fuzzySearch(request)
-
+	log.Print(request)
 	r := bytes.NewReader(body)
 	scanner := bufio.NewScanner(r)
 
@@ -51,6 +52,7 @@ func getRateInfo(request string) (message []string) {
 func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	var AltText = "alttext"
 	// var template linebot.Template
+	log.Print(request)
 	msg := getRateInfo(request)
 	if msg == nil {
 		return nil
