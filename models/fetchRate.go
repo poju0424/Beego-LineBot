@@ -9,6 +9,8 @@ import (
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/line/line-bot-sdk-go/linebot"
 )
 
 func GetRateInfo(request string) (message string) {
@@ -36,6 +38,21 @@ func GetRateInfo(request string) (message string) {
 	if len(message) <= 0 {
 		message = ""
 	}
+	return
+}
+
+func ReplyTemplateMessage(message string) (templateMsg linebot.Message) {
+	var AltText = "alttext"
+	// var template linebot.Template
+	template := linebot.NewButtonsTemplate(
+		"", "My button sample", "Hello, my button",
+		linebot.NewURITemplateAction("Go to line.me", "https://line.me"),
+		linebot.NewPostbackTemplateAction("Say hello1", "hello こんにちは", ""),
+		linebot.NewPostbackTemplateAction("言 hello2", "hello こんにちは", "hello こんにちは"),
+		linebot.NewMessageTemplateAction("Say message", "Rice=米"),
+	)
+
+	templateMsg = linebot.NewTemplateMessage(AltText, template)
 	return
 }
 
