@@ -13,7 +13,7 @@ import (
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
-func GetRateInfo(request string) (message string) {
+func getRateInfo(request string) (message []string) {
 	body, header := ReadFile()
 	datetime := GetTimeFromFileName(header)
 	code, name := fuzzySearch(request)
@@ -27,29 +27,36 @@ func GetRateInfo(request string) (message string) {
 		Debug.CheckErr(err)
 		if matched {
 			arr := strings.Split(line, ",")
-			message = "台銀" + name + "即時匯率:" +
-				"\n 現金買入:" + arr[2] +
+			// message = "台銀" + name + "即時匯率:" +
+			// 	"\n 現金買入:" + arr[2] +
+			// 	"\n 現金賣出:" + arr[3] +
+			// 	"\n 即期買入:" + arr[12] +
+			// 	"\n 即期賣出:" + arr[13] +
+			// 	"\n 更新時間(" + datetime + ")"
+			message[0] = "台銀" + name + "即時匯率:"
+			message[1] = "\n 現金買入:" + arr[2] +
 				"\n 現金賣出:" + arr[3] +
 				"\n 即期買入:" + arr[12] +
 				"\n 即期賣出:" + arr[13] +
 				"\n 更新時間(" + datetime + ")"
+			message[2] = name
 		}
 	}
 	if len(message) <= 0 {
-		message = ""
+		return nil
 	}
 	return
 }
 
-func ReplyTemplateMessage(message string) (templateMsg linebot.Message) {
+func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	var AltText = "alttext"
 	// var template linebot.Template
+	msg := getRateInfo(request)
 	template := linebot.NewButtonsTemplate(
-		"", "My button sample", "Hello, my button",
-		linebot.NewURITemplateAction("Go to line.me", "https://line.me"),
-		linebot.NewPostbackTemplateAction("Say hello1", "hello こんにちは", ""),
-		linebot.NewPostbackTemplateAction("言 hello2", "hello こんにちは", "hello こんにちは"),
-		linebot.NewMessageTemplateAction("Say message", "Rice=米"),
+		"", msg[0], msg[1],
+		linebot.NewURITemplateAction("Go to Taiwan Bank Website", "http://rate.bot.com.tw/xrt?Lang=zh-TW"),
+		linebot.NewPostbackTemplateAction("Find nearby branch", "回傳SERVER值", "不跟你說"),
+		linebot.NewMessageTemplateAction("Query rate again", msg[2]),
 	)
 
 	templateMsg = linebot.NewTemplateMessage(AltText, template)
