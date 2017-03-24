@@ -45,8 +45,8 @@ func getRateInfo(request string) (content, currency string) {
 }
 
 func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
-	var AltText = content
 	content, name := getRateInfo(request)
+	var AltText = content
 	if len(content) <= 0 || len(name) <= 0 {
 		return nil
 	}
