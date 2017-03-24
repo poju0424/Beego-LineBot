@@ -33,7 +33,7 @@ func getRateInfo(request string) (title, content, currency string) {
 			// 	"\n 即期賣出:" + arr[13] +
 			// 	"\n 更新時間(" + datetime + ")"
 			title = "台銀" + name + "即時匯率:"
-			content = "現金賣出匯率:" + arr[3] + "\n 更新時間:" + datetime
+			content = "現金賣出:" + arr[3] + "\n" + datetime
 			currency = name
 		}
 	}
