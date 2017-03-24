@@ -45,7 +45,7 @@ func getRateInfo(request string) (content, currency string) {
 }
 
 func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
-	var AltText = ""
+	var AltText = "ButtonTemplate"
 	content, name := getRateInfo(request)
 	if len(content) <= 0 || len(name) <= 0 {
 		return nil
@@ -53,8 +53,8 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	template := linebot.NewButtonsTemplate(
 		"", "", content,
 		linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"),
-		// linebot.NewPostbackTemplateAction("言 hello2", "hello こんにちは", "hello こんにちは"),
-		linebot.NewMessageTemplateAction("重新查詢", "&&"+name),
+		linebot.NewPostbackTemplateAction("Nerby Bank branch", "findbranch", ""),
+		linebot.NewMessageTemplateAction("Query again", "&&"+name),
 	)
 
 	templateMsg = linebot.NewTemplateMessage(AltText, template)
