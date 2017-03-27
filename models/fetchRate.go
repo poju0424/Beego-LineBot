@@ -26,12 +26,6 @@ func getRateInfo(request string) (content, currency string) {
 		Debug.CheckErr(err)
 		if matched {
 			arr := strings.Split(line, ",")
-			// message = "台銀" + name + "即時匯率:" +
-			// 	"\n 現金買入:" + arr[2] +
-			// 	"\n 現金賣出:" + arr[3] +
-			// 	"\n 即期買入:" + arr[12] +
-			// 	"\n 即期賣出:" + arr[13] +
-			// 	"\n 更新時間(" + datetime + ")"
 			content = " 台銀 " + name + " 即時匯率:" +
 				"\n 現金買入:" + arr[2] +
 				"\n 現金賣出:" + arr[3] +
@@ -53,6 +47,7 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	template := linebot.NewButtonsTemplate(
 		"", "", content,
 		linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"),
+		linebot.NewURITemplateAction("Taiwan Bank Website", "comgooglemaps://?q=台灣銀行"),
 		linebot.NewPostbackTemplateAction("Nerby Bank branch", "findbranch", "找飯店?"),
 		linebot.NewMessageTemplateAction("Query again", "&&"+name),
 	)
