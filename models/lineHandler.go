@@ -43,6 +43,9 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 						log.Print(err)
 					}
 				}
+			case *linebot.LocationMessage:
+				log.Print(message.Latitude)
+				log.Print(message.Longitude)
 			}
 		}
 	}
