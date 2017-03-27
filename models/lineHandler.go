@@ -82,7 +82,8 @@ func getNerybyBank(lat, lon float64) {
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&types=bank&rankby=distance"
 	type Nearby struct {
 		Status          string
-		next_page_token string
+		Next_page_token string
+		Results         interface{}
 	}
 	nearby := new(Nearby)
 	getJSON(url, nearby)
