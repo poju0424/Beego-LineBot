@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strconv"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
@@ -34,18 +35,13 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 				msg, isValid := spliteTextMsg(message.Text)
-				// log.Print(msg)
 				if isValid {
-					// if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(GetRateInfo(msg))).Do(); err != nil {
-					// 	log.Print(err)
-					// }
 					if _, err = bot.ReplyMessage(event.ReplyToken, ReplyTemplateMessage(msg)).Do(); err != nil {
 						log.Print(err)
 					}
 				}
 			case *linebot.LocationMessage:
-				log.Print(message.Latitude)
-				log.Print(message.Longitude)
+				getNerybyBank(message.Latitude, message.Longitude)
 			}
 		}
 	}
@@ -61,4 +57,15 @@ func spliteTextMsg(msg string) (subMsg string, isValid bool) {
 		isValid = false
 	}
 	return
+}
+
+func getNerybyBank(lat, lon float64) {
+	log.Print(lat)
+	log.Print(lon)
+	latitude := strconv.FormatFloat(lat, 'f', -1, 64)
+	longitude := strconv.FormatFloat(lon, 'f', -1, 64)
+	name := "臺灣銀行股份有限公司"
+	APIKey := os.Getenv("GoogleMapNearbySearchKey")
+	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&types=bank&rankby=distance"
+	log.Print(url)
 }
