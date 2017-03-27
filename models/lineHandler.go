@@ -80,9 +80,13 @@ func getNerybyBank(lat, lon float64) {
 	name := "臺灣銀行股份有限公司"
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&types=bank&rankby=distance"
-	var obj interface{}
-	getJSON(url, obj)
-	log.Print(obj)
+	type Nearby struct {
+		Status          string
+		next_page_token string
+	}
+	nearby := new(Nearby)
+	getJSON(url, nearby)
+	log.Print(nearby)
 }
 
 func getPhoto(ref string) (url string) {
