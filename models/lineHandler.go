@@ -44,6 +44,19 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				}
 			case *linebot.LocationMessage:
 				getNerybyBank(message.Latitude, message.Longitude)
+			case *linebot.VideoMessage:
+				log.Print(message.ID)
+				log.Print(message.OriginalContentURL)
+				log.Print(message.PreviewImageURL)
+			case *linebot.ImageMessage:
+				log.Print(message.ID)
+				log.Print(message.OriginalContentURL)
+				log.Print(message.PreviewImageURL)
+			case *linebot.AudioMessage:
+				log.Print(message.ID)
+				log.Print(message.OriginalContentURL)
+				log.Print(message.Duration)
+
 			}
 		}
 	}
@@ -80,14 +93,24 @@ func getNerybyBank(lat, lon float64) {
 	name := "臺灣銀行股份有限公司"
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&types=bank&rankby=distance"
+
+	type Result struct {
+		Name   string
+		Photos string
+	}
+
 	type Nearby struct {
 		Status          string
 		Next_page_token string
-		Results         interface{}
+		Results         []Result
 	}
+
 	nearby := new(Nearby)
 	getJSON(url, nearby)
-	log.Print(nearby)
+	// log.Print(nearby)
+	if nearby.Status == "OK" {
+		log.Print(nearby.Results)
+	}
 }
 
 func getPhoto(ref string) (url string) {
