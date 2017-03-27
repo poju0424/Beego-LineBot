@@ -1,11 +1,13 @@
 package models
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 	"os"
 	"regexp"
 	"strconv"
+	"time"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
@@ -59,6 +61,17 @@ func spliteTextMsg(msg string) (subMsg string, isValid bool) {
 	return
 }
 
+var myClient = &http.Client{Timeout: 10 * time.Second}
+
+func getJSON(url string, target interface{}) error {
+	r, err := myClient.Get(url)
+	if err != nil {
+		return err
+	}
+	defer r.Body.Close()
+	return json.NewDecoder(r.Body).Decode(target)
+}
+
 func getNerybyBank(lat, lon float64) {
 	log.Print(lat)
 	log.Print(lon)
@@ -67,5 +80,14 @@ func getNerybyBank(lat, lon float64) {
 	name := "臺灣銀行股份有限公司"
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&types=bank&rankby=distance"
-	log.Print(url)
+	var obj interface{}
+	getJSON(url, obj)
+	log.Print(obj)
+}
+
+func getPhoto(ref string) (url string) {
+	APIKey := os.Getenv("GoogleMapNearbySearchKey")
+	maxwidth := "400"
+	url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=" + maxwidth + "&photoreference=" + ref + "&key=" + APIKey + ""
+	return
 }
