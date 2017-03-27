@@ -47,8 +47,8 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	template := linebot.NewButtonsTemplate(
 		"", "", content,
 		linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"),
-		linebot.NewURITemplateAction("Taiwan Bank Website", "http://maps.google.com/?q=台灣銀行"),
-		linebot.NewPostbackTemplateAction("Nerby Bank branch", "findbranch", "找飯店?"),
+		linebot.NewURITemplateAction("Find nerby Bank", "http://maps.google.com/?q=台灣銀行"),
+		// linebot.NewPostbackTemplateAction("Nerby Bank branch", "findbranch", "找飯店?"),
 		linebot.NewMessageTemplateAction("Query again", "&&"+name),
 	)
 
