@@ -123,7 +123,8 @@ func getNerybyBank(lat, lon float64) {
 
 	nearby := new(Nearby)
 	getJSON(url, nearby)
-	// log.Print(nearby)
+	log.Print(nearby.Results)
+	log.Print(nearby.Status)
 	if nearby.Status == "OK" {
 		log.Print(nearby.Results)
 	}
