@@ -94,15 +94,31 @@ func getNerybyBank(lat, lon float64) {
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&types=bank&rankby=distance"
 
+	type Location struct {
+		lat string
+		lng string
+	}
+
+	type Geometry struct {
+		location *Location
+	}
+
+	type Photos struct {
+		Height          int
+		width           int
+		photo_reference string
+	}
+
 	type Result struct {
-		Name   string
-		Photos string
+		Name     string
+		Photos   *Photos
+		Geometry *Geometry
+		Vicinity string
 	}
 
 	type Nearby struct {
-		Status          string
-		Next_page_token string
-		Results         []Result
+		Status  string
+		Results *Result
 	}
 
 	nearby := new(Nearby)
