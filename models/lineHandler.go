@@ -94,34 +94,70 @@ func getNerybyBank(lat, lon float64) {
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&types=bank&rankby=distance"
 
-	type Location struct {
-		lat string
-		lng string
+	// type Location struct {
+	// 	lat string
+	// 	lng string
+	// }
+
+	// type Geometry struct {
+	// 	location *Location
+	// }
+
+	// type Photos struct {
+	// 	Height          int
+	// 	width           int
+	// 	photo_reference string
+	// }
+
+	// type Results struct {
+	// 	Name     string
+	// 	Photos   *Photos
+	// 	Geometry *Geometry
+	// 	Vicinity string
+	// }
+
+	// type Nearby struct {
+	// 	Status  string
+	// 	Results *Results
+	// }
+
+	type Address struct {
+		LongName  string   `json:"long_name"`
+		ShortName string   `json:"short_name"`
+		Types     []string `json:"types"`
+	}
+
+	type LatLng struct {
+		Lat float64 `json:"lat"`
+		Lng float64 `json:"lng"`
+	}
+
+	type Bounds struct {
+		Northeast LatLng `json:"northeast"`
+		Southwest LatLng `json:"southwest"`
 	}
 
 	type Geometry struct {
-		location *Location
+		Bounds       Bounds `json:"bounds"`
+		Location     LatLng `json:"location"`
+		LocationType string `json:"location_type"`
+		Viewport     Bounds `json:"viewport"`
 	}
 
-	type Photos struct {
-		Height          int
-		width           int
-		photo_reference string
+	type Result struct {
+		AddressComponents []Address `json:"address_components"`
+		FormattedAddress  string    `json:"formatted_address"`
+		Geometry          Geometry  `json:"geometry"`
+		PlaceId           string    `json:"place_id"`
+		Types             []string  `json:"types"`
 	}
 
 	type Results struct {
-		Name     string
-		Photos   *Photos
-		Geometry *Geometry
-		Vicinity string
+		Results []Result `json:"results"`
+		Status  string   `json:"status"`
 	}
 
-	type Nearby struct {
-		Status  string
-		Results *Results
-	}
-
-	nearby := new(Nearby)
+	nearby := new(Results)
 	getJSON(url, nearby)
 	log.Print(nearby.Results)
 	log.Print(nearby.Status)
