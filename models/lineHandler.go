@@ -109,7 +109,7 @@ func getNerybyBank(lat, lon float64) {
 		photo_reference string
 	}
 
-	type Result struct {
+	type Results struct {
 		Name     string
 		Photos   *Photos
 		Geometry *Geometry
@@ -118,7 +118,7 @@ func getNerybyBank(lat, lon float64) {
 
 	type Nearby struct {
 		Status  string
-		Results *Result
+		Results *Results
 	}
 
 	nearby := new(Nearby)
