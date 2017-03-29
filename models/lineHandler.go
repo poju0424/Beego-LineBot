@@ -134,7 +134,7 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 	// linebot.NewCarouselTemplate
 	//arr := new([]linebot.CarouselColumn)
 	var s []*linebot.CarouselColumn
-	a := make([]*linebot.CarouselColumn, 4)
+	a := make([]*linebot.CarouselColumn)
 	// temp.
 	// linebot.NewCarouselTemplate(temp)
 	if nearby.Status == "OK" {
