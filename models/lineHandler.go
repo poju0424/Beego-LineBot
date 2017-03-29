@@ -94,38 +94,11 @@ func getNerybyBank(lat, lon float64) {
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&types=bank&rankby=distance"
 
-	// type Location struct {
-	// 	lat string
-	// 	lng string
+	// type Address struct {
+	// 	LongName  string   `json:"long_name"`
+	// 	ShortName string   `json:"short_name"`
+	// 	Types     []string `json:"types"`
 	// }
-
-	// type Geometry struct {
-	// 	location *Location
-	// }
-
-	// type Photos struct {
-	// 	Height          int
-	// 	width           int
-	// 	photo_reference string
-	// }
-
-	// type Results struct {
-	// 	Name     string
-	// 	Photos   *Photos
-	// 	Geometry *Geometry
-	// 	Vicinity string
-	// }
-
-	// type Nearby struct {
-	// 	Status  string
-	// 	Results *Results
-	// }
-
-	type Address struct {
-		LongName  string   `json:"long_name"`
-		ShortName string   `json:"short_name"`
-		Types     []string `json:"types"`
-	}
 
 	type LatLng struct {
 		Lat float64 `json:"lat"`
@@ -138,18 +111,20 @@ func getNerybyBank(lat, lon float64) {
 	}
 
 	type Geometry struct {
-		Bounds       Bounds `json:"bounds"`
-		Location     LatLng `json:"location"`
-		LocationType string `json:"location_type"`
-		Viewport     Bounds `json:"viewport"`
+		Location LatLng `json:"location"`
+		Viewport Bounds `json:"viewport"`
+	}
+
+	type Photos struct {
+		Photo_reference string `json:"photo_reference"`
 	}
 
 	type Result struct {
-		AddressComponents []Address `json:"address_components"`
-		FormattedAddress  string    `json:"formatted_address"`
-		Geometry          Geometry  `json:"geometry"`
-		PlaceId           string    `json:"place_id"`
-		Types             []string  `json:"types"`
+		Vicinity string   `json:"vicinity"`
+		Photos   Photos   `json:"photos"`
+		Geometry Geometry `json:"geometry"`
+		Name     string   `json:"name"`
+		Place_id string   `json:"place_id"`
 	}
 
 	type Results struct {
@@ -159,7 +134,7 @@ func getNerybyBank(lat, lon float64) {
 
 	nearby := new(Results)
 	getJSON(url, nearby)
-	log.Print(nearby.Results)
+
 	log.Print(nearby.Status)
 	if nearby.Status == "OK" {
 		log.Print(nearby.Results)
