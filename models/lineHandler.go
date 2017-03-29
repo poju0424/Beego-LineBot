@@ -122,7 +122,7 @@ func getNerybyBank(lat, lon float64) {
 	type Result struct {
 		Name     string   `json:"name"`
 		Vicinity string   `json:"vicinity"`
-		Photos   []string `json:"photos"`
+		Photos   []Photos `json:"photos"`
 		Geometry Geometry `json:"geometry"`
 		Place_id string   `json:"place_id"`
 	}
