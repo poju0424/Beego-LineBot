@@ -43,7 +43,9 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					}
 				}
 			case *linebot.LocationMessage:
-				getNerybyBank(message.Latitude, message.Longitude)
+				if _, err = bot.ReplyMessage(event.ReplyToken, getNerybyBank(message.Latitude, message.Longitude)).Do(); err != nil {
+					log.Print(err)
+				}
 			case *linebot.VideoMessage:
 				log.Print(message.ID)
 				log.Print(message.OriginalContentURL)
@@ -151,6 +153,7 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 		template := linebot.NewCarouselTemplate(a...)
 		templateMsg = linebot.NewTemplateMessage("Find Nearby branch", template)
 	}
+	log.Print(templateMsg)
 	return
 }
 
