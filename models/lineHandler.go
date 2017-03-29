@@ -97,8 +97,8 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&types=bank&rankby=distance"
 
 	type LatLng struct {
-		Lat float64 `json:"lat"`
-		Lng float64 `json:"lng"`
+		Lat string `json:"lat"`
+		Lng string `json:"lng"`
 	}
 
 	type Bounds struct {
@@ -134,11 +134,11 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 	var s []*linebot.CarouselColumn
 	if nearby.Status == "OK" {
 		for i := 0; i < 5; i++ {
+			loc := nearby.Results[i].Geometry.Location.Lat + "," + nearby.Results[i].Geometry.Location.Lng
 			temp := linebot.NewCarouselColumn(
 				getPhoto(nearby.Results[i].Photos[0].Photo_reference),
 				nearby.Results[i].Name, nearby.Results[i].Vicinity,
-				linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"),
-				linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"))
+				linebot.NewURITemplateAction("開始導航", "http://maps.google.com/?q="+loc+""))
 			s = append(s, temp)
 		}
 		template := linebot.NewCarouselTemplate(s...)
