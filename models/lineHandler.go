@@ -131,29 +131,19 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 	nearby := new(Results)
 	getJSON(url, nearby)
 
-	// linebot.NewCarouselTemplate
-	//arr := new([]linebot.CarouselColumn)
 	var s []*linebot.CarouselColumn
-	// a := make([]*linebot.CarouselColumn)
-	// temp.
-	// linebot.NewCarouselTemplate(temp)
 	if nearby.Status == "OK" {
 		for i := 0; i < 5; i++ {
-			// for i, val := range nearby.Results {
-			// 	if i > 4 {
-			// 		break
-			// 	}
-
-			temp := linebot.NewCarouselColumn("", nearby.Results[i].Name, nearby.Results[i].Vicinity, linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"), linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"))
+			temp := linebot.NewCarouselColumn(
+				getPhoto(nearby.Results[i].Photos[0].Photo_reference),
+				nearby.Results[i].Name, nearby.Results[i].Vicinity,
+				linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"),
+				linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"))
 			s = append(s, temp)
-			// a = append(a, temp)
-			// temp := new(linebot.CarouselColumn)
-			// linebot.NewCarouselColumn
 		}
 		template := linebot.NewCarouselTemplate(s...)
 		templateMsg = linebot.NewTemplateMessage("Find Nearby branch", template)
 	}
-	log.Print("lenlenlenlen:", len(s))
 	return
 }
 
