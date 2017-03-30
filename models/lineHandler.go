@@ -34,6 +34,8 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	for _, event := range events {
 		if event.Type == linebot.EventTypeMessage {
+			log.Print(event.Message)
+			log.Print(event)
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 				log.Print(message.Text)
@@ -47,19 +49,6 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				if _, err = bot.ReplyMessage(event.ReplyToken, getNerybyBank(message.Latitude, message.Longitude)).Do(); err != nil {
 					log.Print(err)
 				}
-			case *linebot.VideoMessage:
-				log.Print(message.ID)
-				log.Print(message.OriginalContentURL)
-				log.Print(message.PreviewImageURL)
-			case *linebot.ImageMessage:
-				log.Print(message.ID)
-				log.Print(message.OriginalContentURL)
-				log.Print(message.PreviewImageURL)
-			case *linebot.AudioMessage:
-				log.Print(message.ID)
-				log.Print(message.OriginalContentURL)
-				log.Print(message.Duration)
-
 			}
 		}
 	}
