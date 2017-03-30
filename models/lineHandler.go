@@ -134,7 +134,7 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 	var s []*linebot.CarouselColumn
 	if nearby.Status == "OK" {
 		for i := 0; i < 5; i++ {
-			loc := nearby.Results[i].Geometry.Location.Lat + "," + nearby.Results[i].Geometry.Location.Lng
+			// loc := nearby.Results[i].Geometry.Location.Lat + "," + nearby.Results[i].Geometry.Location.Lng
 			photoURL := "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CoQBdwAAAJmTspJCQZuBOxkXEJf58aYxO7-RpLSW_o6tBDmHD71HYo8ZlOqxh0p6Pt2HM2f2bR9aEIdRNVj7Tc37sRACPmjgc-VlkoExAmjSKCLfOibNT4zKQ52XeNwnSM6EUOq8UeNN3XQmeJashbsO43PyIyXQt5y205QmvPSJWGaWNklFEhBeOqVelbt6nMo-pmVId7ZiGhSvN0lDdwTBidc2WJGVAhVfseZvcw&key=AIzaSyCGlqe0unid-HWSxGCED7PPYDf4F5AI5Fs"
 			log.Print(photoURL)
 			temp := linebot.NewCarouselColumn(
