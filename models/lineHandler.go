@@ -130,8 +130,8 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 	}
 
 	nearby := new(Results)
-	getJSON(url, nearby)
-
+	err := getJSON(url, nearby)
+	log.Print(err)
 	var s []*linebot.CarouselColumn
 	log.Print(nearby.Status)
 	if nearby.Status == "OK" {
