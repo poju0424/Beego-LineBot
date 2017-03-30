@@ -88,18 +88,15 @@ func getJSON(url string, target interface{}) error {
 }
 
 func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
-	log.Print(lat)
-	log.Print(lon)
 	latitude := strconv.FormatFloat(lat, 'f', -1, 64)
 	longitude := strconv.FormatFloat(lon, 'f', -1, 64)
 	name := "臺灣銀行股份有限公司"
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&types=bank&rankby=distance"
-	log.Print(url)
 
 	type LatLng struct {
-		Lat string `json:"lat"`
-		Lng string `json:"lng"`
+		Lat float64 `json:"lat"`
+		Lng float64 `json:"lng"`
 	}
 
 	type Bounds struct {
@@ -131,16 +128,20 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 
 	nearby := new(Results)
 	err := getJSON(url, nearby)
-	log.Print(err)
+	if err != nil {
+		panic(err)
+	}
+
 	var s []*linebot.CarouselColumn
-	log.Print(nearby.Status)
 	if nearby.Status == "OK" {
 		for i := 0; i < 5; i++ {
-			loc := nearby.Results[i].Geometry.Location.Lat + "," + nearby.Results[i].Geometry.Location.Lng
+			f1 := strconv.FormatFloat(nearby.Results[i].Geometry.Location.Lat, 'f', -1, 64)
+			f2 := strconv.FormatFloat(nearby.Results[i].Geometry.Location.Lng, 'f', -1, 64)
+			loc := f1 + "," + f2
 			photoURL := "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CoQBdwAAAJmTspJCQZuBOxkXEJf58aYxO7-RpLSW_o6tBDmHD71HYo8ZlOqxh0p6Pt2HM2f2bR9aEIdRNVj7Tc37sRACPmjgc-VlkoExAmjSKCLfOibNT4zKQ52XeNwnSM6EUOq8UeNN3XQmeJashbsO43PyIyXQt5y205QmvPSJWGaWNklFEhBeOqVelbt6nMo-pmVId7ZiGhSvN0lDdwTBidc2WJGVAhVfseZvcw&key=AIzaSyCGlqe0unid-HWSxGCED7PPYDf4F5AI5Fs"
 			log.Print(photoURL)
 			temp := linebot.NewCarouselColumn(
-				"",
+				photoURL,
 				nearby.Results[i].Name,
 				nearby.Results[i].Vicinity,
 				linebot.NewURITemplateAction("開始導航", "http://maps.google.com/?q="+loc+""))
