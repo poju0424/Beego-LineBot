@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -149,5 +150,9 @@ func getPhoto(ref string) (url string) {
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
 	maxwidth := "400"
 	url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=" + maxwidth + "&photoreference=" + ref + "&key=" + APIKey + ""
+	resp, _ := http.Get(url)
+	log.Print(resp.Body)
+	respBody, _ := ioutil.ReadAll(resp.Body)
+	log.Print(respBody)
 	return
 }
