@@ -36,6 +36,7 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
+				log.Print(message.Text)
 				msg, isValid := spliteTextMsg(message.Text)
 				if isValid {
 					if _, err = bot.ReplyMessage(event.ReplyToken, ReplyTemplateMessage(msg)).Do(); err != nil {
