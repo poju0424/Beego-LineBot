@@ -150,7 +150,7 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 func getPhoto(ref string) (url string) {
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
 	maxwidth := "400"
-	url = "http://maps.googleapis.com/maps/api/place/photo?maxwidth=" + maxwidth + "&photoreference=" + ref + "&key=" + APIKey + ""
+	url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=" + maxwidth + "&photoreference=" + ref + "&key=" + APIKey + ""
 	return
 }
 
