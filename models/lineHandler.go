@@ -49,9 +49,8 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		} else if event.Type == linebot.EventTypePostback {
-			log.Print("get")
-			log.Print(event.Postback.Data)
-			log.Print(event.Message)
+			text := event.Postback.Data
+			bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(text)).Do()
 		}
 	}
 }

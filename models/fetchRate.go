@@ -48,7 +48,7 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 		"", "", content,
 		linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"),
 		linebot.NewURITemplateAction("Find nerby Bank", "http://maps.google.com/?q=台灣銀行"),
-		linebot.NewPostbackTemplateAction("Show nerby Bank", "action=buyItem&itemId=123123&color=red", ""),
+		linebot.NewPostbackTemplateAction("Show nerby Bank", "請傳送位置資訊", ""),
 		// linebot.NewPostbackTemplateAction("Nerby Bank branch", "findbranch", "找飯店?"),
 		linebot.NewMessageTemplateAction("Query again", "&&"+name),
 	)
