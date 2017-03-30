@@ -95,6 +95,7 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 	name := "臺灣銀行股份有限公司"
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&types=bank&rankby=distance"
+	log.Print(url)
 
 	type LatLng struct {
 		Lat string `json:"lat"`
