@@ -33,9 +33,8 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, event := range events {
+		log.Print(event)
 		if event.Type == linebot.EventTypeMessage {
-			log.Print(event.Message)
-			log.Print(event)
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 				log.Print(message.Text)
@@ -50,6 +49,9 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					log.Print(err)
 				}
 			}
+		} else if event.Type == linebot.EventTypePostback {
+			log.Print("get")
+			// event.postback.postback.data
 		}
 	}
 }
