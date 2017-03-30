@@ -129,14 +129,15 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 			f1 := strconv.FormatFloat(nearby.Results[i].Geometry.Location.Lat, 'f', -1, 64)
 			f2 := strconv.FormatFloat(nearby.Results[i].Geometry.Location.Lng, 'f', -1, 64)
 			loc := f1 + "," + f2
-			// photoURL := "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CoQBdwAAAJmTspJCQZuBOxkXEJf58aYxO7-RpLSW_o6tBDmHD71HYo8ZlOqxh0p6Pt2HM2f2bR9aEIdRNVj7Tc37sRACPmjgc-VlkoExAmjSKCLfOibNT4zKQ52XeNwnSM6EUOq8UeNN3XQmeJashbsO43PyIyXQt5y205QmvPSJWGaWNklFEhBeOqVelbt6nMo-pmVId7ZiGhSvN0lDdwTBidc2WJGVAhVfseZvcw&key=AIzaSyCGlqe0unid-HWSxGCED7PPYDf4F5AI5Fs"
+			staticPhotoURL := "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CoQBdwAAAJmTspJCQZuBOxkXEJf58aYxO7-RpLSW_o6tBDmHD71HYo8ZlOqxh0p6Pt2HM2f2bR9aEIdRNVj7Tc37sRACPmjgc-VlkoExAmjSKCLfOibNT4zKQ52XeNwnSM6EUOq8UeNN3XQmeJashbsO43PyIyXQt5y205QmvPSJWGaWNklFEhBeOqVelbt6nMo-pmVId7ZiGhSvN0lDdwTBidc2WJGVAhVfseZvcw&key=AIzaSyCGlqe0unid-HWSxGCED7PPYDf4F5AI5Fs"
 			photoURL := getPhoto(nearby.Results[i].Photos[0].Photo_reference)
 			log.Print(photoURL)
 			temp := linebot.NewCarouselColumn(
-				photoURL,
+				staticPhotoURL,
 				nearby.Results[i].Name,
 				nearby.Results[i].Vicinity,
-				linebot.NewURITemplateAction("開始導航", "http://maps.google.com/?q="+loc+""))
+				linebot.NewURITemplateAction("開始導航", "http://maps.google.com/?q="+loc+""),
+				linebot.NewURITemplateAction("查看街景", photoURL))
 			s = append(s, temp)
 		}
 		template := linebot.NewCarouselTemplate(s...)
