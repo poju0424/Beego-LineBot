@@ -2,7 +2,6 @@ package models
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -146,13 +145,12 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 	return
 }
 
-func getPhoto(ref string) (url string) {
+func getPhoto(ref string) (finalURL string) {
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
 	maxwidth := "400"
-	url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=" + maxwidth + "&photoreference=" + ref + "&key=" + APIKey + ""
+	url := "https://maps.googleapis.com/maps/api/place/photo?maxwidth=" + maxwidth + "&photoreference=" + ref + "&key=" + APIKey + ""
 	resp, _ := http.Get(url)
-	log.Print(resp.Body)
-	respBody, _ := ioutil.ReadAll(resp.Body)
-	log.Print(respBody)
+	finalURL = resp.Request.URL.String()
+	log.Print(finalURL)
 	return
 }
