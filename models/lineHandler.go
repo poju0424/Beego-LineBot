@@ -128,15 +128,16 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 		for i := 0; i < 5; i++ {
 			f1 := strconv.FormatFloat(nearby.Results[i].Geometry.Location.Lat, 'f', -1, 64)
 			f2 := strconv.FormatFloat(nearby.Results[i].Geometry.Location.Lng, 'f', -1, 64)
-			loc := f1 + "," + f2
+			destination := f1 + "," + f2
+			origin := latitude + "," + longitude
 			photoURL := getPhoto(nearby.Results[i].Photos[0].Photo_reference)
-			log.Print(photoURL)
+			content := "地址: " + nearby.Results[i].Vicinity + "\n" + countDistance(origin, destination)
 			temp := linebot.NewCarouselColumn(
-				photoURL,
+				"",
 				nearby.Results[i].Name,
-				nearby.Results[i].Vicinity,
+				content,
 				linebot.NewURITemplateAction("查看圖片", photoURL),
-				linebot.NewURITemplateAction("開始導航", "http://maps.google.com/?q="+loc+""))
+				linebot.NewURITemplateAction("開始導航", "http://maps.google.com/?q="+destination+""))
 
 			s = append(s, temp)
 		}
@@ -153,6 +154,37 @@ func getPhoto(ref string) (url string) {
 	return
 }
 
-func countDistance(start, end string) (output string) {
-	return "123"
+func countDistance(origin, destination string) (output string) {
+	APIkey := "AIzaSyAECvkl4TXtH9mXLJM-JvZ6LP6brfhYFDY"
+	url := "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origin + "&destinations=" + destination + "&language=zh-TW&key=" + APIkey + ""
+
+	type Distance struct {
+		Text  string `json:"text"`
+		Value int    `json:"value"`
+	}
+
+	type Element struct {
+		Distance Distance `json:"distance"`
+	}
+
+	type Row struct {
+		Elements []Element `json:"elements"`
+	}
+
+	type DistanceResult struct {
+		Rows   []Row  `json:"rows"`
+		Status string `json:"status"`
+	}
+
+	distance := new(DistanceResult)
+	err := getJSON(url, distance)
+	if err != nil {
+		panic(err)
+	}
+
+	if distance.Status == "OK" {
+		output = "大約距離:" + distance.Rows[0].Elements[0].Distance.Text
+	}
+
+	return
 }
