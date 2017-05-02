@@ -28,8 +28,8 @@ func getRateInfo(request string) (content, currency string) {
 			arr := strings.Split(line, ",")
 			content = " 台銀 " + name + " 即時匯率:" +
 				"\n 現金買入:" + arr[2] +
-				"\n 現金賣出:" + arr[3] +
-				"\n 即期買入:" + arr[12] +
+				"\n 現金賣出:" + arr[12] +
+				"\n 即期買入:" + arr[3] +
 				"\n 即期賣出:" + arr[13] +
 				"\n " + datetime
 			currency = name
