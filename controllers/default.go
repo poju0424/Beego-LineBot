@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"log"
-
 	"github.com/astaxie/beego"
 )
 
@@ -13,6 +11,6 @@ type MainController struct {
 func (c *MainController) Get() {
 	// c.Data["Website"] = "beego.me"
 	// c.Data["Email"] = "astaxie@gmail.com"
-	log.Print(c)
-	c.TplName = "index.html"
+	// log.Print(c)
+	c.TplName = "index.tpl"
 }
