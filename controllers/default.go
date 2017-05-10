@@ -9,8 +9,8 @@ type MainController struct {
 }
 
 func (this *MainController) Get() {
-	// c.Data["Website"] = "beego.me"
-	// c.Data["Email"] = "astaxie@gmail.com"
+	c.Data["Website"] = "beego.me"
+	c.Data["Email"] = "astaxie@gmail.com"
 	// log.Print(c)
-	this.TplName = "index.tpl"
+	this.TplName = "index.html"
 }
