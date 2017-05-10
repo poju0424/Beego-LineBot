@@ -1,7 +1,8 @@
-package models
+package controllers
 
 import (
 	"encoding/json"
+	"hello/service"
 	"log"
 	"net/http"
 	"os"
@@ -39,7 +40,7 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				log.Print(message.Text)
 				msg, isValid := spliteTextMsg(message.Text)
 				if isValid {
-					if _, err = bot.ReplyMessage(event.ReplyToken, ReplyTemplateMessage(msg)).Do(); err != nil {
+					if _, err = bot.ReplyMessage(event.ReplyToken, service.ReplyTemplateMessage(msg)).Do(); err != nil {
 						log.Print(err)
 					}
 				}
