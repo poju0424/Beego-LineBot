@@ -28,10 +28,13 @@ func getData(time, name string) interface{} {
 	if err != nil {
 		log.Print(err)
 	}
-	table := doc.Find("tbody")
-	log.Print(doc.Text())
+	table := doc.Find("tbody").Each(func(i int, s *goquery.Selection) {
+		log.Print(i)
+		log.Print(s.Find("tr").Text())
+	})
+
 	log.Print(55665566)
-	log.Print(table.Text())
+	// log.Print(table.Text())
 
 	return table.Text()
 }
