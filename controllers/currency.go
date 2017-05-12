@@ -12,10 +12,6 @@ type CurrencyController struct {
 	beego.Controller
 }
 
-type RateHistoryStruct struct {
-	historys []PerHistory
-}
-
 type PerHistory struct {
 	date     string
 	name     string
@@ -23,6 +19,10 @@ type PerHistory struct {
 	cashSell float64
 	rateBuy  float64
 	rateSell float64
+}
+
+type RateHistoryStruct struct {
+	historys []PerHistory
 }
 
 func (c *CurrencyController) Get() {
