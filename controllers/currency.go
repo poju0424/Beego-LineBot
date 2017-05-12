@@ -28,9 +28,13 @@ type CurrencyController struct {
 }
 
 func (c *CurrencyController) Get() {
-	c.Data["Website"] = "beego.me"
-	c.Data["Email"] = "astaxie@gmail.com"
-	// log.Print(c)
+	name := c.Ctx.Input.Param(":name")
+	time := c.Ctx.Input.Param(":time")
+	// url := "http://rate.bot.com.tw/xrt/quote/" + time + "/" + name + ""
+	// log.Print(url)
+
+	data := getData(time, name)
+	c.Data["Body"] = data
 	c.TplName = "index.html"
 }
 
