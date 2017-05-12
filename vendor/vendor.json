@@ -3,6 +3,18 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "ryj0CA/vg2WAw84IUXYvHc/osYI=",
+			"path": "github.com/PuerkitoBio/goquery",
+			"revision": "ed7d758e9a34ba1f55e8084e0d731448b46921a8",
+			"revisionTime": "2017-03-24T13:54:48Z"
+		},
+		{
+			"checksumSHA1": "Bgs5fKx4V8jxL/m/krOLmhS4az4=",
+			"path": "github.com/andybalholm/cascadia",
+			"revision": "349dd0209470eabd9514242c688c403c0926d266",
+			"revisionTime": "2016-12-24T14:14:13Z"
+		},
+		{
 			"checksumSHA1": "hBKw44bNYnsk9B9rs7C8Y4b3i+I=",
 			"path": "github.com/astaxie/beego",
 			"revision": "323a1c4214101331a4b71922c23d19b7409ac71f",
@@ -73,6 +85,18 @@
 			"path": "golang.org/x/net/context/ctxhttp",
 			"revision": "a6577fac2d73be281a500b310739095313165611",
 			"revisionTime": "2017-03-08T20:54:49Z"
+		},
+		{
+			"checksumSHA1": "vqc3a+oTUGX8PmD0TS+qQ7gmN8I=",
+			"path": "golang.org/x/net/html",
+			"revision": "c9b681d35165f1995d6f3034e61f8761d4b90c99",
+			"revisionTime": "2017-05-10T00:04:54Z"
+		},
+		{
+			"checksumSHA1": "00eQaGynDYrv3tL+C7l9xH0IDZg=",
+			"path": "golang.org/x/net/html/atom",
+			"revision": "c9b681d35165f1995d6f3034e61f8761d4b90c99",
+			"revisionTime": "2017-05-10T00:04:54Z"
 		}
 	],
 	"rootPath": "hello"
