@@ -1,0 +1,47 @@
+package controllers
+
+import (
+	"log"
+
+	"github.com/PuerkitoBio/goquery"
+	"github.com/astaxie/beego"
+)
+
+// type CurrencyController struct {
+// 	beego.Controller
+// }
+
+// func (c *CurrencyController) Get() {
+// 	name := c.Ctx.Input.Param(":name")
+// 	time := c.Ctx.Input.Param(":time")
+// 	// url := "http://rate.bot.com.tw/xrt/quote/" + time + "/" + name + ""
+// 	// log.Print(url)
+
+// 	data := getData(time, name)
+// 	c.Data["Body"] = data
+// 	c.TplName = "index.html"
+
+// }
+
+type CurrencyController struct {
+	beego.Controller
+}
+
+func (c *CurrencyController) Get() {
+	c.Data["Website"] = "beego.me"
+	c.Data["Email"] = "astaxie@gmail.com"
+	// log.Print(c)
+	c.TplName = "index.html"
+}
+
+func getData(time, name string) interface{} {
+	url := "http://rate.bot.com.tw/xrt/quote/" + time + "/" + name + ""
+	doc, err := goquery.NewDocument(url)
+	if err != nil {
+		log.Print(err)
+	}
+	table := doc.Find(".table table-striped table-bordered table-condensed table-hover").Find("tbody")
+	log.Print(table)
+
+	return url
+}
