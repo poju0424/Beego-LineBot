@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/PuerkitoBio/goquery"
@@ -29,8 +30,9 @@ func getData(time, name string) interface{} {
 		log.Print(err)
 	}
 	table := doc.Find("tbody").Each(func(i int, s *goquery.Selection) {
-		log.Print(i)
-		log.Print(s.Find("tr").Text())
+		// log.Print(i)
+		// log.Print(s.Find("tr").Text())
+		fmt.Printf("Review %d: %s\n", i, s.Find("tr").Text())
 	})
 
 	log.Print(55665566)
