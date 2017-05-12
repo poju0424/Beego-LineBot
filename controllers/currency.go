@@ -13,7 +13,7 @@ type CurrencyController struct {
 }
 
 type RateHistoryStruct struct {
-	obj []PerHistory
+	historys []PerHistory
 }
 
 type PerHistory struct {
@@ -60,7 +60,7 @@ func getData(time, name string) interface{} {
 			rateSell: rateSell,
 		}
 
-		history.obj = append(history.obj, perHistory)
+		history.AddItem(perHistory)
 		// log.Print(s.ClosestSelection(s.Find("td")))
 		// log.Print(s.Length())
 		// log.Print(s.Find("td").Length())
@@ -78,4 +78,9 @@ func getData(time, name string) interface{} {
 	// log.Print(table.Text())
 
 	return history
+}
+
+func (box *RateHistoryStruct) AddItem(item PerHistory) []PerHistory {
+	box.historys = append(box.historys, item)
+	return box.historys
 }
