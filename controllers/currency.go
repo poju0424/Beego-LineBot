@@ -47,5 +47,5 @@ func getData(time, name string) interface{} {
 	table := doc.Find(".table table-striped table-bordered table-condensed table-hover").Find("tbody")
 	log.Print(table)
 
-	return url
+	return table.Text()
 }
