@@ -33,7 +33,7 @@ func getData(time, name string) interface{} {
 		// log.Print(s.ClosestSelection(s.Find("td")))
 		// log.Print(s.Length())
 		log.Print(s.Find("td").Length())
-		log.Print(s.Find("td").Eq(0).Length())
+		log.Print(s.Find("td").Eq(0).Text())
 
 	})
 
