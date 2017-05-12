@@ -36,6 +36,11 @@ func (c *CurrencyController) Get() {
 	c.TplName = "index.html"
 }
 
+func (box *RateHistoryStruct) AddItem(item PerHistory) []PerHistory {
+	box.Items = append(box.Items, item)
+	return box.Items
+}
+
 func getData(time, name string) interface{} {
 	url := "http://rate.bot.com.tw/xrt/quote/" + time + "/" + name + ""
 	doc, err := goquery.NewDocument(url)
@@ -78,9 +83,4 @@ func getData(time, name string) interface{} {
 	// log.Print(table.Text())
 
 	return len(history.Items)
-}
-
-func (box *RateHistoryStruct) AddItem(item PerHistory) []PerHistory {
-	box.Items = append(box.Items, item)
-	return box.Items
 }
