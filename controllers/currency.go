@@ -74,10 +74,10 @@ func getData(time, name string) interface{} {
 	})
 
 	log.Print(55665566)
-	log.Print(history)
+	// log.Print(history)
 	// log.Print(table.Text())
 
-	return history
+	return len(history.historys)
 }
 
 func (box *RateHistoryStruct) AddItem(item PerHistory) []PerHistory {
