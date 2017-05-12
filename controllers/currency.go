@@ -45,7 +45,8 @@ func getData(time, name string) interface{} {
 		log.Print(err)
 	}
 	table := doc.Find(".table table-striped table-bordered table-condensed table-hover").Find("tbody")
-	log.Print(table)
+	log.Print(55665566)
+	log.Print(table.Text())
 
 	return table.Text()
 }
