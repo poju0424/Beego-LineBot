@@ -31,6 +31,7 @@ func getData(time, name string) interface{} {
 	table := doc.Find("tbody").Find("tr").Each(func(i int, s *goquery.Selection) {
 		log.Print(i)
 		log.Print(s.Find("td").Text())
+		log.Print(s.Find("td").Next().Text())
 
 	})
 
