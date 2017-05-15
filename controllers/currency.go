@@ -31,7 +31,8 @@ func (c *CurrencyController) Get() {
 
 	data := getData(time, name)
 	c.Data["Body"] = data
-	c.TplName = "index.html"
+	// c.TplName = "index.html"
+	c.ServeJSON()
 }
 
 func NewRateHistoryStruct(name string) *RateHistoryStruct {
