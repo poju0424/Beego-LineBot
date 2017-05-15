@@ -27,9 +27,16 @@ type RateHistoryStruct struct {
 func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	params := strings.Split(r.RequestURI, "/")
-	log.Print(params[0])
-	log.Print(params[1])
-	log.Print(params[2])
+	if len(params) == 4 {
+		log.Print(params[2]) //time
+		log.Print(params[3]) //name
+		time := params[2]
+		name := params[3]
+		data := getData(time, name)
+		w.Write([]byte(data.Items[0].date))
+		return
+	}
+
 }
 
 func NewRateHistoryStruct(name string) *RateHistoryStruct {
@@ -43,7 +50,7 @@ func (box *RateHistoryStruct) AddItem(item PerHistory) []PerHistory {
 	return box.Items
 }
 
-func getData(time, name string) interface{} {
+func getData(time, name string) *RateHistoryStruct {
 	url := "http://rate.bot.com.tw/xrt/quote/" + time + "/" + name + ""
 	doc, err := goquery.NewDocument(url)
 	history := NewRateHistoryStruct(name)
