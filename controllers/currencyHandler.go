@@ -85,5 +85,6 @@ func createChart(data *RateHistoryStruct) {
 	log.Print(buffer.String())
 	arr, errr := ioutil.ReadFile("chart.PNG")
 	log.Print(errr)
+	log.Print(arr)
 
 }
