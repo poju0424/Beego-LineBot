@@ -7,8 +7,6 @@ import (
 	"strconv"
 	"strings"
 
-	"io/ioutil"
-
 	"github.com/PuerkitoBio/goquery"
 	chart "github.com/wcharczuk/go-chart"
 )
@@ -31,8 +29,13 @@ func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		time := params[2]
 		name := params[3]
 		data := getData(time, name)
-		createChart(data)
-		w.Write([]byte(data.CurrencyName))
+		buff := createChart(data)
+		// w.Write([]byte(data.CurrencyName))
+		w.Header().Set("Content-Type", "image/jpeg")
+		w.Header().Set("Content-Length", strconv.Itoa(len(buff.Bytes())))
+		if _, err := w.Write(buff.Bytes()); err != nil {
+			log.Println("unable to write image.")
+		}
 		return
 	}
 
@@ -68,7 +71,7 @@ func getData(time, name string) *RateHistoryStruct {
 	return history
 }
 
-func createChart(data *RateHistoryStruct) {
+func createChart(data *RateHistoryStruct) *bytes.Buffer {
 	graph := chart.Chart{
 		Series: []chart.Series{
 			chart.ContinuousSeries{
@@ -83,8 +86,19 @@ func createChart(data *RateHistoryStruct) {
 	buffer.String()
 	log.Print(err)
 	log.Print(buffer.String())
-	arr, errr := ioutil.ReadFile("chart.PNG")
-	log.Print(errr)
-	log.Print(arr)
+	return buffer
+	// r := bytes.NewReader(vv)
+	// img, errr := png.Decode(r)
+	// log.Print(errr)
+	// buffer1 := bytes.NewBuffer([]byte{})
+	// if err := png.Encode(buffer1, img); err != nil {
+	// 	log.Println("unable to encode image.")
+	// }
+	// w.Header().Set("Content-Type", "image/jpeg")
+	// w.Header().Set("Content-Length", strconv.Itoa(len(buffer1.Bytes())))
+
+	// arr, errr := ioutil.ReadFile("chart.PNG")
+	// log.Print(errr)
+	// log.Print(arr)
 
 }
