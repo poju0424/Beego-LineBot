@@ -63,6 +63,18 @@
 			"revisionTime": "2017-03-06T13:59:04Z"
 		},
 		{
+			"checksumSHA1": "Rz+jeTntp13wrnlqUfEaRsnuHrI=",
+			"path": "github.com/golang/freetype/raster",
+			"revision": "bcfeb16b74e8aea9e2fe043406f2ef74b1cb0759",
+			"revisionTime": "2017-04-29T00:42:25Z"
+		},
+		{
+			"checksumSHA1": "kukfJu1TyH0z6fyc9Dh4hw/PnBM=",
+			"path": "github.com/golang/freetype/truetype",
+			"revision": "bcfeb16b74e8aea9e2fe043406f2ef74b1cb0759",
+			"revisionTime": "2017-04-29T00:42:25Z"
+		},
+		{
 			"checksumSHA1": "7fW/xdzVY+E3lG9fPPqd6J2oo68=",
 			"path": "github.com/line/line-bot-sdk-go",
 			"revision": "b52b3bb5f30e629d59bf099e46f0cef2714c643f",
@@ -73,6 +85,48 @@
 			"path": "github.com/line/line-bot-sdk-go/linebot",
 			"revision": "b52b3bb5f30e629d59bf099e46f0cef2714c643f",
 			"revisionTime": "2017-03-17T07:33:38Z"
+		},
+		{
+			"checksumSHA1": "zQ0HyIPlELzYSrNqTMRy37AFK1o=",
+			"path": "github.com/wcharczuk/go-chart",
+			"revision": "43212f871fb8b1f812e08b94587058ac107df966",
+			"revisionTime": "2017-04-26T07:27:11Z"
+		},
+		{
+			"checksumSHA1": "ju/iUyjLnQV0xAWEbDqFkXBwaAc=",
+			"path": "github.com/wcharczuk/go-chart/drawing",
+			"revision": "43212f871fb8b1f812e08b94587058ac107df966",
+			"revisionTime": "2017-04-26T07:27:11Z"
+		},
+		{
+			"checksumSHA1": "COlkHTg3E116nTgtKC5Ddt2M1Mg=",
+			"path": "github.com/wcharczuk/go-chart/matrix",
+			"revision": "43212f871fb8b1f812e08b94587058ac107df966",
+			"revisionTime": "2017-04-26T07:27:11Z"
+		},
+		{
+			"checksumSHA1": "WZqFyWo6r8KZodsU0doRvel37F0=",
+			"path": "golang.org/x/image/draw",
+			"revision": "f483456c9f61fd7c1e170033d58ef22ff5ffe291",
+			"revisionTime": "2017-04-30T07:13:35Z"
+		},
+		{
+			"checksumSHA1": "+U1IB5N4LDS74y4fXjARb4/S4IE=",
+			"path": "golang.org/x/image/font",
+			"revision": "f483456c9f61fd7c1e170033d58ef22ff5ffe291",
+			"revisionTime": "2017-04-30T07:13:35Z"
+		},
+		{
+			"checksumSHA1": "o7VkCGBiKM5HXzVzrIci1YDlpvc=",
+			"path": "golang.org/x/image/math/f64",
+			"revision": "f483456c9f61fd7c1e170033d58ef22ff5ffe291",
+			"revisionTime": "2017-04-30T07:13:35Z"
+		},
+		{
+			"checksumSHA1": "euzvwlMLxyD0hwc+raoVsDLv6j4=",
+			"path": "golang.org/x/image/math/fixed",
+			"revision": "f483456c9f61fd7c1e170033d58ef22ff5ffe291",
+			"revisionTime": "2017-04-30T07:13:35Z"
 		},
 		{
 			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
