@@ -24,7 +24,8 @@ type RateHistoryStruct struct {
 }
 
 func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	console.log(r)
+	log.Print(r)
+	// w.Write(r)
 }
 
 func NewRateHistoryStruct(name string) *RateHistoryStruct {
