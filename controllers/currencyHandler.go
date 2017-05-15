@@ -75,7 +75,9 @@ func createChart(data *RateHistoryStruct) {
 			},
 		},
 	}
+
 	buffer := bytes.NewBuffer([]byte{})
 	err := graph.Render(chart.PNG, buffer)
-	log.Print(err)
+	buffer.String()
+	log.Print(buffer.String())
 }
