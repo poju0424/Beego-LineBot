@@ -30,8 +30,9 @@ func (c *CurrencyController) Get() {
 	time := c.Ctx.Input.Param(":time")
 
 	data := getData(time, name)
-	c.Data["Body"] = data
+	// c.Data["Body"] = data
 	// c.TplName = "index.html"
+	c.Data["json"] = data
 	c.ServeJSON()
 }
 
