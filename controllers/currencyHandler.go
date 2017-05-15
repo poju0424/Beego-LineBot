@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"strings"
 
+	"io/ioutil"
+
 	"github.com/PuerkitoBio/goquery"
 	chart "github.com/wcharczuk/go-chart"
 )
@@ -81,4 +83,7 @@ func createChart(data *RateHistoryStruct) {
 	buffer.String()
 	log.Print(err)
 	log.Print(buffer.String())
+	arr, errr := ioutil.ReadFile("chart.PNG")
+	log.Print(errr)
+
 }
