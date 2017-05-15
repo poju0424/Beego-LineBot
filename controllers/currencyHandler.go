@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -24,8 +25,11 @@ type RateHistoryStruct struct {
 }
 
 func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	log.Print(r.RequestURI)
 
+	params := strings.Split(r.RequestURI, "/")
+	log.Print(params[0])
+	log.Print(params[1])
+	log.Print(params[2])
 }
 
 func NewRateHistoryStruct(name string) *RateHistoryStruct {
