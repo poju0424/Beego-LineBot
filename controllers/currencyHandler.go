@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
+	chart "github.com/wcharczuk/go-chart"
 )
 
 type CurrencyHandler struct{}
@@ -21,6 +22,11 @@ type PerHistory struct {
 
 type RateHistoryStruct struct {
 	Items        []PerHistory
+	CashBuy      []float64
+	CashSell     []float64
+	RateBuy      []float64
+	RateSell     []float64
+	Date         []string
 	CurrencyName string
 }
 
@@ -28,8 +34,6 @@ func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	params := strings.Split(r.RequestURI, "/")
 	if len(params) == 4 {
-		log.Print(params[2]) //time
-		log.Print(params[3]) //name
 		time := params[2]
 		name := params[3]
 		data := getData(time, name)
@@ -54,6 +58,10 @@ func getData(time, name string) *RateHistoryStruct {
 	url := "http://rate.bot.com.tw/xrt/quote/" + time + "/" + name + ""
 	doc, err := goquery.NewDocument(url)
 	history := NewRateHistoryStruct(name)
+	history.CashBuy = append(history.CashBuy, 1.1)
+	history.CashBuy = append(history.CashBuy, 1.2)
+	history.CashBuy = append(history.CashBuy, 1.3)
+	log.Print(history.CashBuy)
 	if err != nil {
 		log.Print(err)
 	}
@@ -73,4 +81,16 @@ func getData(time, name string) *RateHistoryStruct {
 		history.AddItem(perHistory)
 	})
 	return history
+}
+
+func createChart() {
+	graph := chart.Chart{
+		Series: []chart.Series{
+			chart.ContinuousSeries{
+				XValues: []float64{1.0, 2.0, 3.0, 4.0},
+				YValues: []float64{1.0, 2.0, 3.0, 4.0},
+			},
+		},
+	}
+	log.Print(graph)
 }
