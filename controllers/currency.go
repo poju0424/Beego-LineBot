@@ -14,7 +14,6 @@ type CurrencyController struct {
 
 type PerHistory struct {
 	date     string
-	name     string
 	cashBuy  float64
 	cashSell float64
 	rateBuy  float64
@@ -22,7 +21,8 @@ type PerHistory struct {
 }
 
 type RateHistoryStruct struct {
-	Items []PerHistory
+	Items        []PerHistory
+	CurrencyName string
 }
 
 func (c *CurrencyController) Get() {
@@ -34,8 +34,9 @@ func (c *CurrencyController) Get() {
 	c.TplName = "index.html"
 }
 
-func NewRateHistoryStruct() *RateHistoryStruct {
+func NewRateHistoryStruct(name string) *RateHistoryStruct {
 	obj := new(RateHistoryStruct)
+	obj.CurrencyName = name
 	return obj
 }
 
@@ -47,7 +48,7 @@ func (box *RateHistoryStruct) AddItem(item PerHistory) []PerHistory {
 func getData(time, name string) interface{} {
 	url := "http://rate.bot.com.tw/xrt/quote/" + time + "/" + name + ""
 	doc, err := goquery.NewDocument(url)
-	history := NewRateHistoryStruct()
+	history := NewRateHistoryStruct(name)
 	if err != nil {
 		log.Print(err)
 	}
@@ -59,7 +60,6 @@ func getData(time, name string) interface{} {
 
 		perHistory := PerHistory{
 			date:     s.Find("td").Eq(0).Text(),
-			name:     s.Find("td").Eq(1).Text(),
 			cashBuy:  cashBuy,
 			cashSell: cashSell,
 			rateBuy:  rateBuy,
