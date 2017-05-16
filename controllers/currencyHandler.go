@@ -30,11 +30,10 @@ func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		name := params[3]
 		data := getData(time, name)
 		buff := createChart(data)
-		// w.Write([]byte(data.CurrencyName))
 		w.Header().Set("Content-Type", "image/jpeg")
 		w.Header().Set("Content-Length", strconv.Itoa(len(buff.Bytes())))
 		if _, err := w.Write(buff.Bytes()); err != nil {
-			log.Println("unable to write image.")
+			log.Print(err)
 		}
 		return
 	}
@@ -83,22 +82,8 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 
 	buffer := bytes.NewBuffer([]byte{})
 	err := graph.Render(chart.PNG, buffer)
-	buffer.String()
-	log.Print(err)
-	log.Print(buffer.String())
+	if err != nil {
+		log.Print(err)
+	}
 	return buffer
-	// r := bytes.NewReader(vv)
-	// img, errr := png.Decode(r)
-	// log.Print(errr)
-	// buffer1 := bytes.NewBuffer([]byte{})
-	// if err := png.Encode(buffer1, img); err != nil {
-	// 	log.Println("unable to encode image.")
-	// }
-	// w.Header().Set("Content-Type", "image/jpeg")
-	// w.Header().Set("Content-Length", strconv.Itoa(len(buffer1.Bytes())))
-
-	// arr, errr := ioutil.ReadFile("chart.PNG")
-	// log.Print(errr)
-	// log.Print(arr)
-
 }

@@ -48,6 +48,11 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				if _, err = bot.ReplyMessage(event.ReplyToken, getNerybyBank(message.Latitude, message.Longitude)).Do(); err != nil {
 					log.Print(err)
 				}
+			case *linebot.AudioMessage:
+				url = "https://beegolinebot.herokuapp.com/currency/2017-05/JPY"
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(url, url)).Do(); err != nil {
+					log.Print(err)
+				}
 			}
 		} else if event.Type == linebot.EventTypePostback {
 			text := event.Postback.Data
