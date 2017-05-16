@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"strings"
 
+	"time"
+
 	"github.com/PuerkitoBio/goquery"
 	chart "github.com/wcharczuk/go-chart"
 )
@@ -18,7 +20,7 @@ type RateHistoryStruct struct {
 	CashSell     []float64
 	RateBuy      []float64
 	RateSell     []float64
-	Date         []string
+	Date         []time.Time
 	CurrencyName string
 }
 
@@ -46,8 +48,8 @@ func NewRateHistoryStruct(name string) *RateHistoryStruct {
 	return obj
 }
 
-func getData(time, name string) *RateHistoryStruct {
-	url := "http://rate.bot.com.tw/xrt/quote/" + time + "/" + name + ""
+func getData(date, name string) *RateHistoryStruct {
+	url := "http://rate.bot.com.tw/xrt/quote/" + date + "/" + name + ""
 	doc, err := goquery.NewDocument(url)
 	history := NewRateHistoryStruct(name)
 
@@ -56,6 +58,9 @@ func getData(time, name string) *RateHistoryStruct {
 	}
 	doc.Find("tbody").Find("tr").Each(func(i int, s *goquery.Selection) {
 		date := s.Find("td").Eq(0).Text()
+		log.Print(date)
+		date1, _ := time.Parse("2006/01/02", date)
+
 		cashBuy, _ := strconv.ParseFloat(s.Find("td").Eq(2).Text(), 64)
 		cashSell, _ := strconv.ParseFloat(s.Find("td").Eq(3).Text(), 64)
 		rateBuy, _ := strconv.ParseFloat(s.Find("td").Eq(4).Text(), 64)
@@ -65,16 +70,21 @@ func getData(time, name string) *RateHistoryStruct {
 		history.CashSell = append(history.CashSell, cashSell)
 		history.RateBuy = append(history.RateBuy, rateBuy)
 		history.RateSell = append(history.RateSell, rateSell)
-		history.Date = append(history.Date, date)
+		history.Date = append(history.Date, date1)
 	})
 	return history
 }
 
 func createChart(data *RateHistoryStruct) *bytes.Buffer {
 	graph := chart.Chart{
+		Width:  1024,
+		Height: 1024,
+		XAxis: chart.XAxis{
+			ValueFormatter: chart.TimeValueFormatterWithFormat("2006/01/02"),
+		},
 		Series: []chart.Series{
-			chart.ContinuousSeries{
-				XValues: data.CashBuy,
+			chart.TimeSeries{
+				XValues: data.Date,
 				YValues: data.CashSell,
 			},
 		},
