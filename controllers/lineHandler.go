@@ -49,7 +49,7 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					log.Print(err)
 				}
 			case *linebot.AudioMessage:
-				url = "https://beegolinebot.herokuapp.com/currency/2017-05/JPY"
+				url := "https://beegolinebot.herokuapp.com/currency/2017-05/JPY"
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(url, url)).Do(); err != nil {
 					log.Print(err)
 				}
