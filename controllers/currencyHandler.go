@@ -78,7 +78,7 @@ func getData(date, name string) *RateHistoryStruct {
 func createChart(data *RateHistoryStruct) *bytes.Buffer {
 	graph := chart.Chart{
 		Width:  1024,
-		Height: 1024,
+		Height: 512,
 		XAxis: chart.XAxis{
 			ValueFormatter: chart.TimeValueFormatterWithFormat("2006/01/02"),
 		},
