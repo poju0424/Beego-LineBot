@@ -81,6 +81,7 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 		Height: 512,
 		XAxis: chart.XAxis{
 			ValueFormatter: chart.TimeValueFormatterWithFormat("2006/01/02"),
+			Ticks:          setTicks(data.Date),
 		},
 		Series: []chart.Series{
 			chart.TimeSeries{
@@ -96,4 +97,26 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 		log.Print(err)
 	}
 	return buffer
+}
+
+// func (mhr *MarketHoursRange) makeTicks(vf ValueFormatter, times []time.Time) []Tick {
+// 	ticks := make([]Tick, len(times))
+// 	for index, t := range times {
+// 		ticks[index] = Tick{
+// 			Value: util.Time.ToFloat64(t),
+// 			Label: vf(t),
+// 		}
+// 	}
+// 	return ticks
+// }
+
+func setTicks(times []time.Time) []chart.Tick {
+	ticks := make([]chart.Tick, len(times))
+	for index, t := range times {
+		ticks[index] = chart.Tick{
+			Value: chart.Time.ToFloat64(t),
+			Label: t.String(),
+		}
+	}
+	return ticks
 }
