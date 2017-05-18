@@ -58,7 +58,6 @@ func getData(date, name string) *RateHistoryStruct {
 	}
 	doc.Find("tbody").Find("tr").Each(func(i int, s *goquery.Selection) {
 		date := s.Find("td").Eq(0).Text()
-		log.Print(date)
 		date1, _ := time.Parse("2006/01/02", date)
 
 		cashBuy, _ := strconv.ParseFloat(s.Find("td").Eq(2).Text(), 64)
@@ -82,6 +81,7 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 		XAxis: chart.XAxis{
 			ValueFormatter: chart.TimeValueFormatterWithFormat("2006/01/02"),
 			Ticks:          setTicks(data.Date),
+			TickStyle:      chart.Style{Show: true},
 		},
 		Series: []chart.Series{
 			chart.TimeSeries{
@@ -118,5 +118,6 @@ func setTicks(times []time.Time) []chart.Tick {
 			Label: t.String(),
 		}
 	}
+	log.Print(ticks)
 	return ticks
 }
