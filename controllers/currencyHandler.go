@@ -75,7 +75,6 @@ func getData(date, name string) *RateHistoryStruct {
 }
 
 func createChart(data *RateHistoryStruct) *bytes.Buffer {
-	ddd := 0.0
 	graph := chart.Chart{
 		Width:  1024,
 		Height: 512,
