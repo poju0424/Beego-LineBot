@@ -80,8 +80,8 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 		Height: 512,
 		XAxis: chart.XAxis{
 			ValueFormatter: chart.TimeValueFormatterWithFormat("2006/01/02"),
-			Ticks:          setTicks(data.Date),
-			TickStyle:      chart.Style{Show: true},
+			// Ticks:          setTicks(data.Date),
+			Style: chart.Style{Show: true},
 		},
 		Series: []chart.Series{
 			chart.TimeSeries{
