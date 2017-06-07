@@ -118,7 +118,7 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 }
 
 func makeTicks(data *RateHistoryStruct) []chart.Tick {
-	log.Print(data)
+	log.Print(data.CashBuy)
 	var ans []chart.Tick
 	return ans
 }
