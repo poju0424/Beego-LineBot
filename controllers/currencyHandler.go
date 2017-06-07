@@ -123,14 +123,15 @@ func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
 	min, max := findRangeFloatSlice(data.CashSell)
 	// log.Print(min, max)
 	top := math.Ceil(max*100) / 100
-	bot := math.Ceil(min*100)/100 - 0.01
+	bot := math.Floor(min*100) / 100
 	log.Print(top, bot)
 
 	for top > bot {
 		log.Print(top)
-		str := strconv.FormatFloat(top, 'f', 4, 64)
-		temp := chart.Tick{Value: top, Label: str}
-		top = top - 0.005
+		var this = top
+		str := strconv.FormatFloat(this, 'f', 4, 64)
+		temp := chart.Tick{Value: this, Label: str}
+		top = this - 0.005
 		log.Print(temp)
 	}
 
