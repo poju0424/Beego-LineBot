@@ -128,12 +128,15 @@ func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
 	log.Print(top, bot)
 
 	for top > bot {
-		log.Print(decimal.NewFromFloat(top))
 		log.Print(top)
-		var this = top
-		str := strconv.FormatFloat(this, 'f', 4, 64)
-		temp := chart.Tick{Value: this, Label: str}
-		top = this - 0.005
+		var this = decimal.NewFromFloat(top)
+		str := strconv.FormatFloat(top, 'f', 4, 64)
+		temp := chart.Tick{Value: top, Label: str}
+
+		this = this.Add(decimal.NewFromFloat(-0.005))
+		new, boo := this.Float64()
+		log.Print(new, boo)
+		top = new
 		log.Print(temp)
 	}
 
