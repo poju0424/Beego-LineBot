@@ -77,7 +77,7 @@ func getData(date, name string) *RateHistoryStruct {
 }
 
 func createChart(data *RateHistoryStruct) *bytes.Buffer {
-	makeTicks(data)
+
 	graph := chart.Chart{
 		Width:  1024,
 		Height: 512,
@@ -91,17 +91,7 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 			Style: chart.Style{
 				Show: true,
 			},
-			Ticks: []chart.Tick{
-				{0.300, "0.300"},
-				{0.295, "0.295"},
-				{0.290, "0.290"},
-				{0.285, "0.285"},
-				{0.280, "0.280"},
-				{0.275, "0.275"},
-				{0.270, "0.270"},
-				{0.265, "0.265"},
-				{0.260, "0.260"},
-			},
+			Ticks: makeTicks(data),
 		},
 		Series: []chart.Series{
 			chart.TimeSeries{
