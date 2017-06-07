@@ -3,7 +3,6 @@ package controllers
 import (
 	"bytes"
 	"log"
-	"math"
 	"net/http"
 	"strconv"
 	"strings"
@@ -110,25 +109,35 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 }
 
 func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
-	min, max := findTicksRange(data.CashSell)
-	top := math.Ceil(max*100) / 100
-	bot := math.Floor(min*100) / 100
-	// top := decimal.NewFromFloat(math.Ceil((max-0.005)*100) / 100).Add(decimal.NewFromFloat(0.005))
+	min, max := findSliceMinMax(data.CashSell)
+	// top := math.Ceil(max*100) / 100
 	// bot := math.Floor(min*100) / 100
-	log.Print(top, bot)
 
-	for top >= bot {
-		var this = decimal.NewFromFloat(top)
-		str := strconv.FormatFloat(top, 'f', 3, 64)
-		temp := chart.Tick{Value: top, Label: str}
+	dMax := decimal.NewFromFloat(max).Mul(decimal.NewFromFloat(200)).Ceil().Div(decimal.NewFromFloat(200))
+	dMin := decimal.NewFromFloat(min).Mul(decimal.NewFromFloat(200)).Floor().Div(decimal.NewFromFloat(200))
+
+	for dMax.GreaterThanOrEqual(dMin) {
+		// var this = decimal.NewFromFloat(top)
+		// str := strconv.FormatFloat(dMax.Float64(), 'f', 3, 64)
+		f64Val, _ := dMax.Float64()
+		temp := chart.Tick{Value: f64Val, Label: dMax.StringFixed(3)}
 		ticks = append(ticks, temp)
-		this = this.Add(decimal.NewFromFloat(-0.005))
-		top, _ = this.Float64()
+		dMax = dMax.Add(decimal.NewFromFloat(-0.005))
 	}
+	log.Print(ticks)
+
+	// for top >= bot {
+	// 	var this = decimal.NewFromFloat(top)
+	// 	str := strconv.FormatFloat(top, 'f', 3, 64)
+	// 	temp := chart.Tick{Value: top, Label: str}
+	// 	ticks = append(ticks, temp)
+	// 	this = this.Add(decimal.NewFromFloat(-0.005))
+	// 	top, _ = this.Float64()
+	// }
 	return
 }
 
-func findTicksRange(v []float64) (min, max float64) {
+func findSliceMinMax(v []float64) (min, max float64) {
 	if len(v) > 0 {
 		min = v[0]
 		max = v[0]
@@ -141,12 +150,6 @@ func findTicksRange(v []float64) (min, max float64) {
 			max = v[i]
 		}
 	}
-	// dMax := decimal.NewFromFloat(0.276).Add(decimal.NewFromFloat(-0.005)).Mul(decimal.NewFromFloat(100)).Ceil().Div(decimal.NewFromFloat(100)).Add(decimal.NewFromFloat(0.005))
-	// math.Ceil((max-0.005)*100)/100+0.005
-	// dMin := decimal.NewFromFloat(min)
-	dMax := float64(int64(max/0.05+0.5)) * 0.05
-	log.Print(dMax)
-	log.Print(decimal.NewFromFloat(dMax))
 	return
 }
 
