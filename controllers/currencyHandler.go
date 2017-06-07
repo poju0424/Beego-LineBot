@@ -130,7 +130,7 @@ func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
 		log.Print(top)
 		str := strconv.FormatFloat(top, 'f', 4, 64)
 		temp := chart.Tick{Value: top, Label: str}
-		top = top - 0.05
+		top = top - 0.005
 		log.Print(temp)
 	}
 
