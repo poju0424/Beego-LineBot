@@ -121,6 +121,9 @@ func makeTicks(data *RateHistoryStruct) []chart.Tick {
 	log.Print(data.CashSell)
 	min, max := findRangeFloatSlice(data.CashSell)
 	log.Print(min, max)
+	log.Print(round(min, 3))
+	log.Print(round(max, 2))
+
 	var ans []chart.Tick
 	return ans
 
@@ -140,6 +143,10 @@ func findRangeFloatSlice(v []float64) (min, max float64) {
 		}
 	}
 	return
+}
+
+func round(x, unit float64) float64 {
+	return float64(int64(x/unit+0.5)) * unit
 }
 
 // func setTicks(times []time.Time) []chart.Tick {
