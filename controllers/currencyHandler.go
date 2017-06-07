@@ -3,6 +3,7 @@ package controllers
 import (
 	"bytes"
 	"log"
+	"math"
 	"net/http"
 	"strconv"
 	"strings"
@@ -121,9 +122,9 @@ func makeTicks(data *RateHistoryStruct) []chart.Tick {
 	log.Print(data.CashSell)
 	min, max := findRangeFloatSlice(data.CashSell)
 	log.Print(min, max)
-	log.Print(round(min, 0.05))
-	log.Print(round(max, 0.005))
-
+	top := math.Ceil(max*100) / 100
+	bot := math.Ceil(min*100)/100 - 0.01
+	log.Print(top, bot)
 	var ans []chart.Tick
 	return ans
 
@@ -145,9 +146,9 @@ func findRangeFloatSlice(v []float64) (min, max float64) {
 	return
 }
 
-func round(x, unit float64) float64 {
-	return float64(int64(x/unit+0.5)) * unit
-}
+// func round(x, unit float64) float64 {
+// 	return float64(int64(x/unit+0.5)) * unit
+// }
 
 // func setTicks(times []time.Time) []chart.Tick {
 // 	ticks := make([]chart.Tick, len(times))
