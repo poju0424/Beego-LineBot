@@ -141,7 +141,8 @@ func findTicksRange(v []float64) (min, max float64) {
 			max = v[i]
 		}
 	}
-	dMax := decimal.NewFromFloat(max).Mul(decimal.NewFromFloat(100)).Add(decimal.NewFromFloat(-0.005)).Div(decimal.NewFromFloat(100)).Add(decimal.NewFromFloat(0.005))
+	dMax := decimal.NewFromFloat(max).Add(decimal.NewFromFloat(-0.005)).Mul(decimal.NewFromFloat(100)).Div(decimal.NewFromFloat(100)).Add(decimal.NewFromFloat(0.005))
+	// math.Ceil((max-0.005)*100)/100+0.005
 	// dMin := decimal.NewFromFloat(min)
 	log.Print(dMax)
 	return
