@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
+	"github.com/shopspring/decimal"
 	chart "github.com/wcharczuk/go-chart"
 )
 
@@ -127,6 +128,7 @@ func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
 	log.Print(top, bot)
 
 	for top > bot {
+		log.Print(decimal.NewFromFloat(top))
 		log.Print(top)
 		var this = top
 		str := strconv.FormatFloat(this, 'f', 4, 64)

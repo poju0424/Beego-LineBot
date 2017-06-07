@@ -75,6 +75,10 @@
 			"revisionTime": "2017-04-29T00:42:25Z"
 		},
 		{
+			"path": "github.com/kardianos/govendor",
+			"revision": ""
+		},
+		{
 			"checksumSHA1": "7fW/xdzVY+E3lG9fPPqd6J2oo68=",
 			"path": "github.com/line/line-bot-sdk-go",
 			"revision": "b52b3bb5f30e629d59bf099e46f0cef2714c643f",
@@ -85,6 +89,12 @@
 			"path": "github.com/line/line-bot-sdk-go/linebot",
 			"revision": "b52b3bb5f30e629d59bf099e46f0cef2714c643f",
 			"revisionTime": "2017-03-17T07:33:38Z"
+		},
+		{
+			"checksumSHA1": "AAyeU5IJLK8ubh2rOMWgbqWjBi8=",
+			"path": "github.com/shopspring/decimal",
+			"revision": "16a941821474ee3986fdbeab535a68a8aa5a85d2",
+			"revisionTime": "2017-05-17T22:01:17Z"
 		},
 		{
 			"checksumSHA1": "zQ0HyIPlELzYSrNqTMRy37AFK1o=",
