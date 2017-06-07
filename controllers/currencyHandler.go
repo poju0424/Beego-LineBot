@@ -121,8 +121,8 @@ func makeTicks(data *RateHistoryStruct) []chart.Tick {
 	log.Print(data.CashSell)
 	min, max := findRangeFloatSlice(data.CashSell)
 	log.Print(min, max)
-	log.Print(round(min, 3))
-	log.Print(round(max, 2))
+	log.Print(round(min, 0.05))
+	log.Print(round(max, 0.005))
 
 	var ans []chart.Tick
 	return ans
