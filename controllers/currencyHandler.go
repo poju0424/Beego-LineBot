@@ -75,6 +75,7 @@ func getData(date, name string) *RateHistoryStruct {
 }
 
 func createChart(data *RateHistoryStruct) *bytes.Buffer {
+	makeTicks(data)
 	graph := chart.Chart{
 		Width:  1024,
 		Height: 512,
@@ -116,16 +117,11 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 	return buffer
 }
 
-// func (mhr *MarketHoursRange) makeTicks(vf ValueFormatter, times []time.Time) []Tick {
-// 	ticks := make([]Tick, len(times))
-// 	for index, t := range times {
-// 		ticks[index] = Tick{
-// 			Value: util.Time.ToFloat64(t),
-// 			Label: vf(t),
-// 		}
-// 	}
-// 	return ticks
-// }
+func makeTicks(data *RateHistoryStruct) []chart.Tick {
+	log.Print(data)
+	var ans []chart.Tick
+	return ans
+}
 
 func setTicks(times []time.Time) []chart.Tick {
 	ticks := make([]chart.Tick, len(times))
