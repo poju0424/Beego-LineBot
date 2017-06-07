@@ -118,19 +118,38 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 }
 
 func makeTicks(data *RateHistoryStruct) []chart.Tick {
-	log.Print(data.CashBuy)
+	log.Print(data.CashSell)
+	min, max := findRangeFloatSlice(data.CashSell)
+	log.Print(min, max)
 	var ans []chart.Tick
 	return ans
+
 }
 
-func setTicks(times []time.Time) []chart.Tick {
-	ticks := make([]chart.Tick, len(times))
-	for index, t := range times {
-		ticks[index] = chart.Tick{
-			Value: chart.Time.ToFloat64(t),
-			Label: t.String(),
+func findRangeFloatSlice(v []float64) (min, max float64) {
+	if len(v) > 0 {
+		min = v[0]
+		max = v[0]
+	}
+	for i := 1; i < len(v); i++ {
+		if v[i] < min {
+			min = v[i]
+		}
+		if v[i] > max {
+			max = v[i]
 		}
 	}
-	log.Print(ticks)
-	return ticks
+	return
 }
+
+// func setTicks(times []time.Time) []chart.Tick {
+// 	ticks := make([]chart.Tick, len(times))
+// 	for index, t := range times {
+// 		ticks[index] = chart.Tick{
+// 			Value: chart.Time.ToFloat64(t),
+// 			Label: t.String(),
+// 		}
+// 	}
+// 	log.Print(ticks)
+// 	return ticks
+// }
