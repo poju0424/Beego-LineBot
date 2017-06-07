@@ -118,15 +118,22 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 	return buffer
 }
 
-func makeTicks(data *RateHistoryStruct) []chart.Tick {
-	log.Print(data.CashSell)
+func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
+	// log.Print(data.CashSell)
 	min, max := findRangeFloatSlice(data.CashSell)
-	log.Print(min, max)
+	// log.Print(min, max)
 	top := math.Ceil(max*100) / 100
 	bot := math.Ceil(min*100)/100 - 0.01
 	log.Print(top, bot)
-	var ans []chart.Tick
-	return ans
+
+	for top > bot {
+		str := strconv.FormatFloat(top, 'f', 4, 64)
+		temp := chart.Tick{Value: top, Label: str}
+		top = top - 0.05
+		log.Print(temp)
+	}
+
+	return
 
 }
 
