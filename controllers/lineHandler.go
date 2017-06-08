@@ -57,7 +57,7 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		} else if event.Type == linebot.EventTypePostback {
 			text := event.Postback.Data
 			log.Print(5566)
-			log.Print(event.Postback)
+			log.Print(event.Postback.Data)
 			bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(text)).Do()
 		}
 	}
