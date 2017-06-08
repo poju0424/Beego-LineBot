@@ -3,6 +3,10 @@
 	"ignore": "test",
 	"package": [
 		{
+			"path": "all",
+			"revision": ""
+		},
+		{
 			"checksumSHA1": "ryj0CA/vg2WAw84IUXYvHc/osYI=",
 			"path": "github.com/PuerkitoBio/goquery",
 			"revision": "ed7d758e9a34ba1f55e8084e0d731448b46921a8",
@@ -115,7 +119,7 @@
 			"revisionTime": "2017-04-26T07:27:11Z"
 		},
 		{
-			"checksumSHA1": "WZqFyWo6r8KZodsU0doRvel37F0=",
+			"checksumSHA1": "ZEEyhXypFFC4N9ZiiQlgO5VjqU4=",
 			"path": "golang.org/x/image/draw",
 			"revision": "f483456c9f61fd7c1e170033d58ef22ff5ffe291",
 			"revisionTime": "2017-04-30T07:13:35Z"
@@ -157,11 +161,11 @@
 			"revisionTime": "2017-05-10T00:04:54Z"
 		},
 		{
-			"checksumSHA1": "00eQaGynDYrv3tL+C7l9xH0IDZg=",
+			"checksumSHA1": "z79z5msRzgU48FCZxSuxfU8b4rs=",
 			"path": "golang.org/x/net/html/atom",
 			"revision": "c9b681d35165f1995d6f3034e61f8761d4b90c99",
 			"revisionTime": "2017-05-10T00:04:54Z"
 		}
 	],
-	"rootPath": "hello"
+	"rootPath": "Beego-LineBot"
 }
