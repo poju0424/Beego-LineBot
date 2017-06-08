@@ -56,9 +56,14 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			}
 		} else if event.Type == linebot.EventTypePostback {
 			text := event.Postback.Data
-			log.Print(5566)
-			log.Print(event)
-			log.Print(text)
+			byteArr := []byte(text)
+			var postbackObj service.PostbackObj
+			err := json.Unmarshal(byteArr, &postbackObj)
+			if err != nil {
+				log.Print(err)
+			}
+			log.Print(postbackObj.Method)
+			log.Print(postbackObj.Data)
 			bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(text)).Do()
 		}
 	}

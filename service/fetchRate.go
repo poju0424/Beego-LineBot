@@ -72,13 +72,13 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	// obj := NewPostbackObj()
 	template := linebot.NewButtonsTemplate(
 		"", "", content,
-		linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"),
+		linebot.NewURITemplateAction("台銀網站", "https://goo.gl/ZCXw47"),
 		// linebot.NewURITemplateAction("Taiwan Bank Website1", "https://github.com/poju0424/Beego-LineBot"),
 		// linebot.NewPostbackTemplateAction("最近的分行", "請傳送位置資訊給我", ""),
+		linebot.NewPostbackTemplateAction("近3個月走勢", NewJString("image", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+""), ""),
 		linebot.NewPostbackTemplateAction("最近的分行", NewJString("text", "請傳送位置資訊給我"), ""),
 		// linebot.NewPostbackTemplateAction("近3個月走勢", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+"", ""),
-		linebot.NewPostbackTemplateAction("近3個月走勢", NewJString("image", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+""), ""),
-		linebot.NewMessageTemplateAction("Query again", "&&"+name),
+		linebot.NewMessageTemplateAction("重新查詢", "&&"+name),
 	)
 
 	templateMsg = linebot.NewTemplateMessage(AltText, template)
