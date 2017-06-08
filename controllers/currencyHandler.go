@@ -110,31 +110,31 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 
 func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
 	min, max := findSliceMinMax(data.CashSell)
-	scale, interval := getTicksInterval(max)
+	scale, interval, fixed := getTicksInterval(max)
 	dMax := decimal.NewFromFloat(max).Mul(decimal.NewFromFloat(scale)).Ceil().Div(decimal.NewFromFloat(scale))
 	dMin := decimal.NewFromFloat(min).Mul(decimal.NewFromFloat(scale)).Floor().Div(decimal.NewFromFloat(scale))
-	log.Print(dMax, dMin)
-	log.Print(interval)
 
 	for dMax.GreaterThanOrEqual(dMin) {
 		f64Val, _ := dMax.Float64()
-		temp := chart.Tick{Value: f64Val, Label: dMax.StringFixed(3)}
+		temp := chart.Tick{Value: f64Val, Label: dMax.StringFixed(fixed)}
 		ticks = append(ticks, temp)
 		dMax = dMax.Add(decimal.NewFromFloat(interval))
 	}
 	return
 }
 
-func getTicksInterval(input float64) (scale, interval float64) {
+func getTicksInterval(input float64) (scale, interval float64, fixed int32) {
 	// to convert a float number to a string
 	length := len(strconv.FormatFloat(input, 'f', 0, 64))
 	log.Print(length)
 	if length <= 1 {
 		interval = (-0.005)
 		scale = 200
+		fixed = 3
 	}
-	interval = (-0.05)
+	interval = (-0.1)
 	scale = 10
+	fixed = 1
 	return
 }
 
