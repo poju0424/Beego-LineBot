@@ -125,14 +125,17 @@ func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
 	return
 }
 
-func getTicksInterval(input float64) float64 {
+func getTicksInterval(input float64) (scale, interval float64) {
 	// to convert a float number to a string
 	length := len(strconv.FormatFloat(input, 'f', 0, 64))
 	log.Print(length)
 	if length <= 1 {
-		return -0.005
+		interval = (-0.005)
+		scale = 200
 	}
-	return -0.05
+	interval = (-0.05)
+	scale = 10
+	return
 }
 
 func findSliceMinMax(v []float64) (min, max float64) {
