@@ -53,11 +53,10 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(url, url)).Do(); err != nil {
 					log.Print(err)
 				}
-			default:
-				log.Print(event)
 			}
 		} else if event.Type == linebot.EventTypePostback {
 			text := event.Postback.Data
+			log.Print(event)
 			bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(text)).Do()
 		}
 	}
