@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"hello/Util/Debug"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"regexp"
 	"strings"
@@ -41,7 +40,7 @@ func getRateInfo(request string) (content, currency string) {
 
 func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	content, name := getRateInfo(request)
-	log.Print(request)
+	code, _ := fuzzySearch(request)
 	var AltText = content
 	if len(content) <= 0 || len(name) <= 0 {
 		return nil
@@ -51,7 +50,7 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 		linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"),
 		// linebot.NewURITemplateAction("Taiwan Bank Website1", "https://github.com/poju0424/Beego-LineBot"),
 		linebot.NewPostbackTemplateAction("最近的分行", "請傳送位置資訊給我", "text"),
-		linebot.NewPostbackTemplateAction("近3個月走勢", "https://beegolinebot.herokuapp.com/currency/ltm/JPY", "image"),
+		linebot.NewPostbackTemplateAction("近3個月走勢", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+"", "image"),
 		linebot.NewMessageTemplateAction("Query again", "&&"+name),
 	)
 
