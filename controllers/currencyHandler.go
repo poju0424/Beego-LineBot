@@ -79,7 +79,7 @@ func getData(date, name string) *RateHistoryStruct {
 func createChart(data *RateHistoryStruct) *bytes.Buffer {
 
 	graph := chart.Chart{
-		Title: data.CurrencyName,
+		Title: string("中文"),
 		TitleStyle: chart.Style{
 			Show: true,
 		},
@@ -99,12 +99,12 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 		},
 		Series: []chart.Series{
 			chart.TimeSeries{
-				Name:    "A test series",
+				Name:    string("現金賣出"),
 				XValues: data.Date,
 				YValues: data.CashSell,
 			},
 			chart.TimeSeries{
-				Name:    "A test series1",
+				Name:    string("現金買入"),
 				XValues: data.Date,
 				YValues: data.CashBuy,
 			},
@@ -112,7 +112,7 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 	}
 
 	graph.Elements = []chart.Renderable{
-		chart.LegendThin(&graph),
+		chart.LegendLeft(&graph),
 	}
 
 	buffer := bytes.NewBuffer([]byte{})
