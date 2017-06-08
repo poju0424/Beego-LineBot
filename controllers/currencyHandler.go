@@ -129,7 +129,7 @@ func getTicksInterval(input float64) float64 {
 	// to convert a float number to a string
 	length := len(strconv.FormatFloat(input, 'f', 0, 64))
 	log.Print(length)
-	if length <= 0 {
+	if length <= 1 {
 		return -0.005
 	}
 	return -0.05
