@@ -111,7 +111,9 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 				Style: chart.Style{
 					Show:        true,
 					StrokeColor: chart.GetDefaultColor(0),
-					StrokeWidth: 10,
+					StrokeWidth: 5,
+					DotColor:    chart.GetAlternateColor(3),
+					DotWidth:    10,
 				},
 			},
 			chart.TimeSeries{
@@ -121,6 +123,7 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 				Style: chart.Style{
 					Show:        true,
 					StrokeColor: chart.GetDefaultColor(2),
+					StrokeWidth: 5,
 				},
 			},
 		},
