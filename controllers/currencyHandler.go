@@ -112,7 +112,7 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 	}
 
 	graph.Elements = []chart.Renderable{
-		chart.Legend(&graph),
+		chart.LegendThin(&graph),
 	}
 
 	buffer := bytes.NewBuffer([]byte{})
