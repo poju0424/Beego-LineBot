@@ -112,7 +112,8 @@ func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
 	min, max := findSliceMinMax(data.CashSell)
 	dMax := decimal.NewFromFloat(max).Mul(decimal.NewFromFloat(200)).Ceil().Div(decimal.NewFromFloat(200))
 	dMin := decimal.NewFromFloat(min).Mul(decimal.NewFromFloat(200)).Floor().Div(decimal.NewFromFloat(200))
-	log.Print(dMax.Exponent())
+	log.Print(dMax, dMin)
+	log.Print(String.valueOf(dMax).length())
 	for dMax.GreaterThanOrEqual(dMin) {
 		f64Val, _ := dMax.Float64()
 		temp := chart.Tick{Value: f64Val, Label: dMax.StringFixed(3)}
