@@ -78,7 +78,7 @@ func getData(date, name string) *RateHistoryStruct {
 func createChart(data *RateHistoryStruct) *bytes.Buffer {
 
 	graph := chart.Chart{
-		Title: "現金匯率<img src='https://avatars2.githubusercontent.com/u/26101876?v=3&s=40'>",
+		Title: "現金匯率",
 		TitleStyle: chart.Style{
 			Show: true,
 		},
