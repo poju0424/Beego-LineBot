@@ -111,6 +111,10 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 		},
 	}
 
+	graph.Elements = []chart.Renderable{
+		chart.Legend(&graph),
+	}
+
 	buffer := bytes.NewBuffer([]byte{})
 	err := graph.Render(chart.PNG, buffer)
 	if err != nil {
