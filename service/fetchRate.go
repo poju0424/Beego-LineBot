@@ -74,7 +74,8 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 		"", "", content,
 		linebot.NewURITemplateAction("台銀網站", "https://goo.gl/ZCXw47"),
 		linebot.NewPostbackTemplateAction("近3個月現金匯率", NewJString("image", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+""), ""),
-		linebot.NewPostbackTemplateAction("最近的分行", NewJString("text", "請傳送位置資訊給我"), ""),
+		linebot.NewPostbackTemplateAction("近半年現金匯率", NewJString("image", "https://beegolinebot.herokuapp.com/currency/l6m/"+code+""), ""),
+		linebot.NewPostbackTemplateAction("附近的分行", NewJString("text", "請傳送位置資訊給我"), ""),
 		linebot.NewMessageTemplateAction("重新查詢", name),
 		// linebot.NewMessageTemplateAction("重新查詢", "&&"+name),
 	)

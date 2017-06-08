@@ -38,6 +38,7 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 				log.Print(message.Text)
+				msg := message.Text
 				// msg, isValid := spliteTextMsg(message.Text)
 				// if isValid {
 				// 	if _, err = bot.ReplyMessage(event.ReplyToken, service.ReplyTemplateMessage(msg)).Do(); err != nil {
@@ -159,7 +160,7 @@ func getNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 				"",
 				nearby.Results[i].Name,
 				content,
-				linebot.NewURITemplateAction("查看圖片", photoURL),
+				linebot.NewURITemplateAction("查看街景", photoURL),
 				linebot.NewURITemplateAction("開始導航", "http://maps.google.com/?q="+destination+""))
 
 			s = append(s, temp)
