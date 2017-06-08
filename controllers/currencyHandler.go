@@ -114,7 +114,7 @@ func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
 	dMax := decimal.NewFromFloat(max).Mul(decimal.NewFromFloat(200)).Ceil().Div(decimal.NewFromFloat(200))
 	dMin := decimal.NewFromFloat(min).Mul(decimal.NewFromFloat(200)).Floor().Div(decimal.NewFromFloat(200))
 	log.Print(dMax, dMin)
-	log.Print(getTicksInterval(max))
+	log.Print(interval)
 
 	for dMax.GreaterThanOrEqual(dMin) {
 		f64Val, _ := dMax.Float64()
@@ -128,6 +128,7 @@ func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
 func getTicksInterval(input float64) float64 {
 	// to convert a float number to a string
 	length := len(strconv.FormatFloat(input, 'f', 0, 64))
+	log.Print(length)
 	if length <= 0 {
 		return -0.005
 	}
