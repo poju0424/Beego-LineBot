@@ -20,15 +20,7 @@ type PostbackObj struct {
 	Data   string
 }
 
-func NewPostbackObj(method, data string) *PostbackObj {
-	obj := new(PostbackObj)
-	obj.Method = method
-	obj.Data = data
-	return obj
-}
-
 func NewJString(method, data string) string {
-	// values := map[string]string{"method": method, "data": data}
 	values := &PostbackObj{method, data}
 	str, err := json.Marshal(values)
 	if err != nil {
@@ -69,14 +61,12 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	if len(content) <= 0 || len(name) <= 0 {
 		return nil
 	}
-	// obj := NewPostbackObj()
 	template := linebot.NewButtonsTemplate(
 		"", "", content,
 		linebot.NewURITemplateAction("台銀網站", "https://goo.gl/ZCXw47"),
 		linebot.NewPostbackTemplateAction("近3個月現金匯率", NewJString("image", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+""), ""),
 		linebot.NewPostbackTemplateAction("附近的分行", NewJString("text", "請傳送位置資訊給我"), ""),
 		linebot.NewMessageTemplateAction("重新查詢", name),
-		// linebot.NewMessageTemplateAction("重新查詢", "&&"+name),
 	)
 
 	templateMsg = linebot.NewTemplateMessage(AltText, template)
