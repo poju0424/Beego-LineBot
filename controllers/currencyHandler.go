@@ -78,6 +78,7 @@ func getData(date, name string) *RateHistoryStruct {
 func createChart(data *RateHistoryStruct) *bytes.Buffer {
 
 	graph := chart.Chart{
+		Title:  "現金匯率<img src='https://avatars2.githubusercontent.com/u/26101876?v=3&s=40'>",
 		Width:  1024,
 		Height: 512,
 		XAxis: chart.XAxis{
@@ -113,7 +114,6 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 }
 
 func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
-	// min, max := findSliceMinMax(data.CashSell)
 	min, max := findSliceMinMax(data)
 	scale, interval, fixed := getTicksIntervalArgs(max)
 	dMax := decimal.NewFromFloat(max).Mul(decimal.NewFromFloat(scale)).Ceil().Div(decimal.NewFromFloat(scale))
@@ -157,35 +157,3 @@ func findSliceMinMax(v *RateHistoryStruct) (min, max float64) {
 	}
 	return
 }
-
-// func findSliceMinMax(v []float64) (min, max float64) {
-// 	if len(v) > 0 {
-// 		min = v[0]
-// 		max = v[0]
-// 	}
-// 	for i := 1; i < len(v); i++ {
-// 		if v[i] < min {
-// 			min = v[i]
-// 		}
-// 		if v[i] > max {
-// 			max = v[i]
-// 		}
-// 	}
-// 	return
-// }
-
-// func round(x, unit float64) float64 {
-// 	return float64(int64(x/unit+0.5)) * unit
-// }
-
-// func setTicks(times []time.Time) []chart.Tick {
-// 	ticks := make([]chart.Tick, len(times))
-// 	for index, t := range times {
-// 		ticks[index] = chart.Tick{
-// 			Value: chart.Time.ToFloat64(t),
-// 			Label: t.String(),
-// 		}
-// 	}
-// 	log.Print(ticks)
-// 	return ticks
-// }
