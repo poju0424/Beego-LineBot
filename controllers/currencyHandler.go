@@ -97,9 +97,15 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 			},
 			Ticks: makeTicks(data),
 		},
+		Background: chart.Style{
+			Padding: chart.Box{
+				Top:  20,
+				Left: 260,
+			},
+		},
 		Series: []chart.Series{
 			chart.TimeSeries{
-				Name:    string("現金賣出"),
+				Name:    string("\x90\xA2\x8A\x45"),
 				XValues: data.Date,
 				YValues: data.CashSell,
 			},
