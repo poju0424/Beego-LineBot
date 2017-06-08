@@ -113,7 +113,8 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 }
 
 func makeTicks(data *RateHistoryStruct) (ticks []chart.Tick) {
-	min, max := findSliceMinMax(data.CashSell)
+	// min, max := findSliceMinMax(data.CashSell)
+	min, max := findSliceMinMax(data)
 	scale, interval, fixed := getTicksIntervalArgs(max)
 	dMax := decimal.NewFromFloat(max).Mul(decimal.NewFromFloat(scale)).Ceil().Div(decimal.NewFromFloat(scale))
 	dMin := decimal.NewFromFloat(min).Mul(decimal.NewFromFloat(scale)).Floor().Div(decimal.NewFromFloat(scale))
@@ -141,21 +142,37 @@ func getTicksIntervalArgs(input float64) (scale, interval float64, fixed int32) 
 	return
 }
 
-func findSliceMinMax(v []float64) (min, max float64) {
-	if len(v) > 0 {
-		min = v[0]
-		max = v[0]
+func findSliceMinMax(v *RateHistoryStruct) (min, max float64) {
+	if len(v.CashSell) > 0 && len(v.CashBuy) > 0 {
+		min = v.CashBuy[0]
+		max = v.CashSell[0]
 	}
-	for i := 1; i < len(v); i++ {
-		if v[i] < min {
-			min = v[i]
+	for i := 1; i < len(v.CashSell); i++ {
+		if v.CashBuy[i] < min {
+			min = v.CashBuy[i]
 		}
-		if v[i] > max {
-			max = v[i]
+		if v.CashSell[i] > max {
+			max = v.CashSell[i]
 		}
 	}
 	return
 }
+
+// func findSliceMinMax(v []float64) (min, max float64) {
+// 	if len(v) > 0 {
+// 		min = v[0]
+// 		max = v[0]
+// 	}
+// 	for i := 1; i < len(v); i++ {
+// 		if v[i] < min {
+// 			min = v[i]
+// 		}
+// 		if v[i] > max {
+// 			max = v[i]
+// 		}
+// 	}
+// 	return
+// }
 
 // func round(x, unit float64) float64 {
 // 	return float64(int64(x/unit+0.5)) * unit
