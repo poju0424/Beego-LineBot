@@ -100,7 +100,7 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 			chart.TimeSeries{
 				XValues: data.Date,
 				YValues: data.CashBuy,
-			}
+			},
 		},
 	}
 
