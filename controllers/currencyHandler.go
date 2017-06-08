@@ -132,10 +132,11 @@ func getTicksIntervalArgs(input float64) (scale, interval float64, fixed int32) 
 		interval = (-0.005)
 		scale = 200
 		fixed = 3
+	} else {
+		interval = (-0.1)
+		scale = 10
+		fixed = 1
 	}
-	interval = (-0.1)
-	scale = 10
-	fixed = 1
 	return
 }
 
