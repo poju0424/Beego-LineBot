@@ -78,7 +78,7 @@ func getData(date, name string) *RateHistoryStruct {
 
 func createChart(data *RateHistoryStruct) *bytes.Buffer {
 	graph := chart.Chart{
-		Title: data.CurrencyName + "(" + data.Date[len(data.Date)].Format("Jan 2 2006") + ")",
+		Title: data.CurrencyName + "(" + data.Date[len(data.Date)-1].Format("Jan 2 2006") + ")",
 		TitleStyle: chart.Style{
 			Show: true,
 		},
