@@ -62,9 +62,15 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				log.Print(err)
 			}
-			log.Print(postbackObj.Method)
-			log.Print(postbackObj.Data)
-			bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(text)).Do()
+			switch postbackObj.Method {
+			case "text":
+				bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(postbackObj.Data)).Do()
+			case "image":
+				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(postbackObj.Data, postbackObj.Data)).Do(); err != nil {
+					log.Print(err)
+				}
+			}
+
 		}
 	}
 }
