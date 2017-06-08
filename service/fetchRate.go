@@ -11,8 +11,6 @@ import (
 	"regexp"
 	"strings"
 	"time"
-
-	"github.com/line/line-bot-sdk-go/linebot"
 )
 
 type PostbackObj struct {
@@ -29,10 +27,10 @@ func NewJString(method, data string) string {
 	return string(str)
 }
 
-func getRateInfo(request string) (content, currency string) {
+func GetRateInfo(request string) (content, currency string) {
 	body, header := ReadFile()
 	datetime := GetTimeFromFileName(header)
-	code, name := fuzzySearch(request)
+	code, name := FuzzySearch(request)
 	r := bytes.NewReader(body)
 	scanner := bufio.NewScanner(r)
 
@@ -54,24 +52,24 @@ func getRateInfo(request string) (content, currency string) {
 	return
 }
 
-func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
-	content, name := getRateInfo(request)
-	code, _ := fuzzySearch(request)
-	var AltText = content
-	if len(content) <= 0 || len(name) <= 0 {
-		return nil
-	}
-	template := linebot.NewButtonsTemplate(
-		"", "", content,
-		linebot.NewURITemplateAction("台銀網站", "https://goo.gl/ZCXw47"),
-		linebot.NewPostbackTemplateAction("近3個月現金匯率", NewJString("image", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+""), ""),
-		linebot.NewPostbackTemplateAction("附近的分行", NewJString("text", "請傳送位置資訊給我"), ""),
-		linebot.NewMessageTemplateAction("重新查詢", name),
-	)
+// func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
+// 	content, name := getRateInfo(request)
+// 	code, _ := fuzzySearch(request)
+// 	var AltText = content
+// 	if len(content) <= 0 || len(name) <= 0 {
+// 		return nil
+// 	}
+// 	template := linebot.NewButtonsTemplate(
+// 		"", "", content,
+// 		linebot.NewURITemplateAction("台銀網站", "https://goo.gl/ZCXw47"),
+// 		linebot.NewPostbackTemplateAction("近3個月現金匯率", NewJString("image", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+""), ""),
+// 		linebot.NewPostbackTemplateAction("附近的分行", NewJString("text", "請傳送位置資訊給我"), ""),
+// 		linebot.NewMessageTemplateAction("重新查詢", name),
+// 	)
 
-	templateMsg = linebot.NewTemplateMessage(AltText, template)
-	return
-}
+// 	templateMsg = linebot.NewTemplateMessage(AltText, template)
+// 	return
+// }
 
 func ReadFile() (body []byte, header http.Header) {
 	var filePath = "http://rate.bot.com.tw/xrt/flcsv/0/day"
@@ -101,7 +99,7 @@ func connectDB(currency string, cashbuy, cashsell, ratebuy, ratesell float64) {
 
 }
 
-func fuzzySearch(msg string) (code, name string) {
+func FuzzySearch(msg string) (code, name string) {
 	searchList := [][]string{}
 	searchList = append(searchList, []string{"日", "jpy", "日圓"})
 	searchList = append(searchList, []string{"jp", "jpy", "日圓"})
