@@ -71,6 +71,7 @@ func getData(date, name string) *RateHistoryStruct {
 		history.RateBuy = append(history.RateBuy, rateBuy)
 		history.RateSell = append(history.RateSell, rateSell)
 		history.Date = append(history.Date, date1)
+
 	})
 	return history
 }
@@ -78,7 +79,7 @@ func getData(date, name string) *RateHistoryStruct {
 func createChart(data *RateHistoryStruct) *bytes.Buffer {
 
 	graph := chart.Chart{
-		Title: "現金匯率",
+		Title: data.CurrencyName,
 		TitleStyle: chart.Style{
 			Show: true,
 		},
@@ -98,10 +99,12 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 		},
 		Series: []chart.Series{
 			chart.TimeSeries{
+				Name:    "A test series",
 				XValues: data.Date,
 				YValues: data.CashSell,
 			},
 			chart.TimeSeries{
+				Name:    "A test series1",
 				XValues: data.Date,
 				YValues: data.CashBuy,
 			},
