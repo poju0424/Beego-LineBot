@@ -3,8 +3,10 @@ package service
 import (
 	"bufio"
 	"bytes"
+	"encoding/json"
 	"hello/Util/Debug"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"regexp"
 	"strings"
@@ -12,6 +14,28 @@ import (
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
+
+type PostbackObj struct {
+	Method string
+	Data   string
+}
+
+func NewPostbackObj(method, data string) *PostbackObj {
+	obj := new(PostbackObj)
+	obj.Method = method
+	obj.Data = data
+	return obj
+}
+
+func NewJString(method, data string) string {
+	// values := map[string]string{"method": method, "data": data}
+	values := &PostbackObj{method, data}
+	str, err := json.Marshal(values)
+	if err != nil {
+		log.Print(err)
+	}
+	return string(str)
+}
 
 func getRateInfo(request string) (content, currency string) {
 	body, header := ReadFile()
@@ -45,12 +69,15 @@ func ReplyTemplateMessage(request string) (templateMsg linebot.Message) {
 	if len(content) <= 0 || len(name) <= 0 {
 		return nil
 	}
+	// obj := NewPostbackObj()
 	template := linebot.NewButtonsTemplate(
 		"", "", content,
 		linebot.NewURITemplateAction("Taiwan Bank Website", "https://goo.gl/ZCXw47"),
 		// linebot.NewURITemplateAction("Taiwan Bank Website1", "https://github.com/poju0424/Beego-LineBot"),
-		linebot.NewPostbackTemplateAction("最近的分行", "請傳送位置資訊給我", "text"),
-		linebot.NewPostbackTemplateAction("近3個月走勢", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+"", "image"),
+		// linebot.NewPostbackTemplateAction("最近的分行", "請傳送位置資訊給我", ""),
+		linebot.NewPostbackTemplateAction("最近的分行", NewJString("text", "請傳送位置資訊給我"), ""),
+		// linebot.NewPostbackTemplateAction("近3個月走勢", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+"", ""),
+		linebot.NewPostbackTemplateAction("近3個月走勢", NewJString("image", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+""), ""),
 		linebot.NewMessageTemplateAction("Query again", "&&"+name),
 	)
 
