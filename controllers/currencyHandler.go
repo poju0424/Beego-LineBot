@@ -100,7 +100,7 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 		Background: chart.Style{
 			Padding: chart.Box{
 				Top:  20,
-				Left: 50,
+				Left: 60,
 			},
 		},
 		Series: []chart.Series{
@@ -108,11 +108,19 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 				Name:    string("CashSell"),
 				XValues: data.Date,
 				YValues: data.CashSell,
+				Style: chart.Style{
+					Show:        true,
+					StrokeColor: chart.GetDefaultColor(0),
+				},
 			},
 			chart.TimeSeries{
 				Name:    string("CashBuy"),
 				XValues: data.Date,
 				YValues: data.CashBuy,
+				Style: chart.Style{
+					Show:        true,
+					StrokeColor: chart.GetDefaultColor(2),
+				},
 			},
 		},
 	}
