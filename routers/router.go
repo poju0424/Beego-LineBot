@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"hello/controllers"
+	"Beego-LineBot/controllers"
 
 	"github.com/astaxie/beego"
 )
