@@ -129,7 +129,7 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 				YValues: data.RateBuy,
 				Style: chart.Style{
 					Show:        true,
-					StrokeColor: chart.GetAlternateColor(6),
+					StrokeColor: chart.GetAlternateColor(3),
 					StrokeWidth: 5,
 				},
 			},
@@ -138,9 +138,10 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 				XValues: data.Date,
 				YValues: data.RateSell,
 				Style: chart.Style{
-					Show:        true,
-					StrokeColor: chart.GetAlternateColor(6),
-					StrokeWidth: 5,
+					Show:            true,
+					StrokeColor:     chart.GetAlternateColor(5),
+					StrokeWidth:     5,
+					StrokeDashArray: 5,
 				},
 			},
 		},
