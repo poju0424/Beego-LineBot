@@ -1,6 +1,6 @@
 # Beego-LineBot: using Beego framework as LineBot handler
 Try it by yourself:
-<a href="https://line.me/R/ti/p/%40orx4083y" target="_blank"><img height="36" border="0" alt="加入好友" src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png"></a>
+<a href="http://qr-official.line.me/M/93By7CZ7co.png" target="_blank"><img height="36" border="0" alt="加入好友" src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png"></a>
 <img align="left" width="100" height="100" src="http://qr-official.line.me/M/93By7CZ7co.png">
 
 # Installation and Usage
