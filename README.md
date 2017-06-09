@@ -16,7 +16,8 @@ You can create one from [here](https://business.line.me/zh-hant/)
 - `Webhook URL`: https://{YOUR_HEROKU_APP_URL}/callback
 
 ### 4. Setting Heroku Config Variables
-You will need below message to run this app:
+Go to Your Heroku APP -> Settings -> Config Variables -> Reveal Config Vars
+Add below variables:
 - `ChannelAccessToken` : You can find it in LineBot dashboard
 - `ChannelSecret` : You can find it in LineBot dashboard
 - `GoogleMapNearbySearchKey` : You can get it from [Google Places API](https://developers.google.com/places/)
