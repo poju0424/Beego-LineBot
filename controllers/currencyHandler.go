@@ -123,27 +123,6 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 					StrokeWidth: 5,
 				},
 			},
-			chart.TimeSeries{
-				Name:    string("RateBuy"),
-				XValues: data.Date,
-				YValues: data.RateBuy,
-				Style: chart.Style{
-					Show:        true,
-					StrokeColor: chart.GetAlternateColor(3),
-					StrokeWidth: 5,
-				},
-			},
-			chart.TimeSeries{
-				Name:    string("RateSell"),
-				XValues: data.Date,
-				YValues: data.RateSell,
-				Style: chart.Style{
-					Show:            true,
-					StrokeColor:     chart.GetAlternateColor(5),
-					StrokeWidth:     5,
-					StrokeDashArray: 5,
-				},
-			},
 		},
 	}
 
