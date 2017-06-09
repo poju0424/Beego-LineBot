@@ -1,7 +1,6 @@
 # Beego-LineBot: using Beego framework as LineBot handler
 Can try it first.
-<img src="http://qr-official.line.me/L/93By7CZ7co.png">
-<a href="https://line.me/R/ti/p/%40orx4083y"><img height="36" border="0" alt="加入好友" src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png"></a>
+<a href="https://line.me/R/ti/p/%40orx4083y" target="_blank"><img height="36" border="0" alt="加入好友" src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png"></a>
 
 # Installation and Usage
 ### 1.Deploy on your Heroku
