@@ -77,8 +77,6 @@ func getData(date, name string) *RateHistoryStruct {
 }
 
 func createChart(data *RateHistoryStruct) *bytes.Buffer {
-	// log.Print(data.Date[len(data.Date)-1])
-	// log.Print(len(data.Date))
 	graph := chart.Chart{
 		Title: data.CurrencyName + "(" + data.Date[0].Format("Jan 2 2006") + ")",
 		TitleStyle: chart.Style{
@@ -113,14 +111,32 @@ func createChart(data *RateHistoryStruct) *bytes.Buffer {
 					Show:        true,
 					StrokeColor: chart.GetAlternateColor(4),
 					StrokeWidth: 5,
-					// DotColor:    chart.GetAlternateColor(4),
-					// DotWidth:    10,
 				},
 			},
 			chart.TimeSeries{
 				Name:    string("CashBuy"),
 				XValues: data.Date,
 				YValues: data.CashBuy,
+				Style: chart.Style{
+					Show:        true,
+					StrokeColor: chart.GetAlternateColor(6),
+					StrokeWidth: 5,
+				},
+			},
+			chart.TimeSeries{
+				Name:    string("RateBuy"),
+				XValues: data.Date,
+				YValues: data.RateBuy,
+				Style: chart.Style{
+					Show:        true,
+					StrokeColor: chart.GetAlternateColor(6),
+					StrokeWidth: 5,
+				},
+			},
+			chart.TimeSeries{
+				Name:    string("RateSell"),
+				XValues: data.Date,
+				YValues: data.RateSell,
 				Style: chart.Style{
 					Show:        true,
 					StrokeColor: chart.GetAlternateColor(6),
