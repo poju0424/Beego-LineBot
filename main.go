@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "hello/routers"
+	_ "Beego-LineBot/routers"
 	"os"
 	"strconv"
 
