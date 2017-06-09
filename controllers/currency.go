@@ -21,16 +21,16 @@ type CurrencyController struct {
 // 	CurrencyName string
 // }
 
-func (c *CurrencyController) Get() {
-	name := c.Ctx.Input.Param(":name")
-	time := c.Ctx.Input.Param(":time")
+// func (c *CurrencyController) Get() {
+// 	name := c.Ctx.Input.Param(":name")
+// 	time := c.Ctx.Input.Param(":time")
 
-	data := getData(time, name)
-	// c.Data["Body"] = data
-	// c.TplName = "index.html"
-	c.Data["json"] = data
-	c.ServeJSON()
-}
+// 	data := getData(time, name)
+// 	// c.Data["Body"] = data
+// 	// c.TplName = "index.html"
+// 	c.Data["json"] = data
+// 	c.ServeJSON()
+// }
 
 // func NewRateHistoryStruct(name string) *RateHistoryStruct {
 // 	obj := new(RateHistoryStruct)
