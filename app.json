@@ -1,0 +1,11 @@
+{
+  "name": "CurrencyExchangeBot",
+  "description": "Send currency exchange data to user",
+  "repository": "https://github.com/poju0424/Beego-LineBot.git",
+  "keywords": ["Line", "go", "bot"],
+  "buildpacks": [
+    {
+      "url": "heroku/go"
+    }
+  ]
+}
