@@ -16,6 +16,7 @@ type CurrencyHandler struct{}
 
 func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	params := strings.Split(r.RequestURI, "/")
+
 	if len(params) == 4 {
 		time := params[2]
 		name := params[3]
@@ -38,7 +39,7 @@ func createChart(data *model.RateHistoryStruct) *bytes.Buffer {
 			Show: true,
 		},
 		Width:  1024,
-		Height: 640,
+		Height: 512,
 		XAxis: chart.XAxis{
 			ValueFormatter: chart.TimeValueFormatterWithFormat("2006/01/02"),
 			Style: chart.Style{
@@ -59,7 +60,7 @@ func createChart(data *model.RateHistoryStruct) *bytes.Buffer {
 		},
 		Series: []chart.Series{
 			chart.TimeSeries{
-				Name:    string("CashSell"),
+				Name:    "中文",
 				XValues: data.Date,
 				YValues: data.CashSell,
 				Style: chart.Style{
