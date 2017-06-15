@@ -18,9 +18,6 @@ type CurrencyHandler struct{}
 
 func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	params := strings.Split(r.RequestURI, "/")
-	str1, _, _ := transform.String(traditionalchinese.Big5.NewEncoder(), "中文")
-	str2, _, _ := transform.String(traditionalchinese.Big5.NewDecoder(), str1)
-	log.Print(str1, str2)
 	if len(params) == 4 {
 		time := params[2]
 		name := params[3]
@@ -36,11 +33,12 @@ func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// func showChinese(string) {
-// 	str1, _, _ := transform.String(traditionalchinese.Big5.NewEncoder(), "中文")
-// 	str2, _, _ := transform.String(traditionalchinese.Big5.NewDecoder(), str1)
-// 	log.Print(str1, str2)
-// }
+func showChinese() string {
+	str1, _, _ := transform.String(traditionalchinese.Big5.NewEncoder(), "中文")
+	str2, _, _ := transform.String(traditionalchinese.Big5.NewDecoder(), str1)
+	log.Print(str1, str2)
+	return str2
+}
 
 func createChart(data *model.RateHistoryStruct) *bytes.Buffer {
 	graph := chart.Chart{
@@ -70,7 +68,7 @@ func createChart(data *model.RateHistoryStruct) *bytes.Buffer {
 		},
 		Series: []chart.Series{
 			chart.TimeSeries{
-				Name:    "中文",
+				Name:    showChinese(),
 				XValues: data.Date,
 				YValues: data.CashSell,
 				Style: chart.Style{
