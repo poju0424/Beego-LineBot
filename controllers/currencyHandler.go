@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"Beego-LineBot/service"
+	"Beego-LineBot/model"
 	"bytes"
 	"log"
 	"net/http"
@@ -19,7 +19,7 @@ func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if len(params) == 4 {
 		time := params[2]
 		name := params[3]
-		data := service.GetData(time, name)
+		data := model.GetData(time, name)
 		buff := createChart(data)
 		w.Header().Set("Content-Type", "image/jpeg")
 		w.Header().Set("Content-Length", strconv.Itoa(len(buff.Bytes())))
@@ -31,7 +31,7 @@ func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func createChart(data *service.RateHistoryStruct) *bytes.Buffer {
+func createChart(data *model.RateHistoryStruct) *bytes.Buffer {
 	graph := chart.Chart{
 		Title: data.CurrencyName + "(" + data.Date[0].Format("Jan 2 2006") + ")",
 		TitleStyle: chart.Style{
@@ -93,7 +93,7 @@ func createChart(data *service.RateHistoryStruct) *bytes.Buffer {
 	return buffer
 }
 
-func makeTicks(data *service.RateHistoryStruct) (ticks []chart.Tick) {
+func makeTicks(data *model.RateHistoryStruct) (ticks []chart.Tick) {
 	min, max := findSliceMinMax(data)
 	scale, interval, fixed := getTicksIntervalArgs(max)
 	dMax := decimal.NewFromFloat(max).Mul(decimal.NewFromFloat(scale)).Ceil().Div(decimal.NewFromFloat(scale))
@@ -122,7 +122,7 @@ func getTicksIntervalArgs(input float64) (scale, interval float64, fixed int32) 
 	return
 }
 
-func findSliceMinMax(v *service.RateHistoryStruct) (min, max float64) {
+func findSliceMinMax(v *model.RateHistoryStruct) (min, max float64) {
 	if len(v.CashSell) > 0 && len(v.CashBuy) > 0 {
 		min = v.CashBuy[0]
 		max = v.CashSell[0]

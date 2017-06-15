@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"Beego-LineBot/service"
+	"Beego-LineBot/model"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -40,13 +40,13 @@ func (*LineHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 					log.Print(err)
 				}
 			case *linebot.LocationMessage:
-				if _, err = bot.ReplyMessage(event.ReplyToken, service.GetNerybyBank(message.Latitude, message.Longitude)).Do(); err != nil {
+				if _, err = bot.ReplyMessage(event.ReplyToken, model.GetNerybyBank(message.Latitude, message.Longitude)).Do(); err != nil {
 					log.Print(err)
 				}
 			}
 		} else if event.Type == linebot.EventTypePostback {
 			byteArr := []byte(event.Postback.Data)
-			var postbackObj service.PostbackObj
+			var postbackObj model.PostbackObj
 			err := json.Unmarshal(byteArr, &postbackObj)
 			if err != nil {
 				log.Print(err)
@@ -77,8 +77,8 @@ func spliteTextMsg(msg string) (subMsg string, isValid bool) { //only response t
 }
 
 func replyTemplateMessage(request string) (templateMsg linebot.Message) {
-	content, name := service.GetRateInfo(request)
-	code, _ := service.FuzzySearch(request)
+	content, name := model.GetRateInfo(request)
+	code, _ := model.FuzzySearch(request)
 	var AltText = content
 	if len(content) <= 0 || len(name) <= 0 {
 		return nil
@@ -86,8 +86,8 @@ func replyTemplateMessage(request string) (templateMsg linebot.Message) {
 	template := linebot.NewButtonsTemplate(
 		"", "", content,
 		linebot.NewURITemplateAction("台銀網站", "https://goo.gl/ZCXw47"),
-		linebot.NewPostbackTemplateAction("近3個月現金匯率", service.NewJString("image", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+""), ""),
-		linebot.NewPostbackTemplateAction("附近的分行", service.NewJString("text", "請傳送位置訊息給我"), ""),
+		linebot.NewPostbackTemplateAction("近3個月現金匯率", model.NewJString("image", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+""), ""),
+		linebot.NewPostbackTemplateAction("附近的分行", model.NewJString("text", "請傳送位置訊息給我"), ""),
 		linebot.NewMessageTemplateAction("重新查詢", name),
 	)
 
