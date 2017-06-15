@@ -167,8 +167,10 @@
 			"revisionTime": "2017-05-10T00:04:54Z"
 		},
 		{
+			"checksumSHA1": "5Pu4kIIFrYb1oJWIvsdzr2pM38s=",
 			"path": "golang.org/x/text",
-			"revision": ""
+			"revision": "3491b61b9edc56653ad4333e605e2908e46a036b",
+			"revisionTime": "2017-06-09T08:37:55Z"
 		}
 	],
 	"rootPath": "Beego-LineBot"
