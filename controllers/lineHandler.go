@@ -86,8 +86,8 @@ func replyTemplateMessage(request string) (templateMsg linebot.Message) {
 	template := linebot.NewButtonsTemplate(
 		"", "", content,
 		linebot.NewURITemplateAction("台銀網站", "https://goo.gl/ZCXw47"),
-		linebot.NewPostbackTemplateAction("近3個月現金匯率", model.NewJString("image", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+""), ""),
-		linebot.NewPostbackTemplateAction("附近的分行", model.NewJString("text", "請傳送位置訊息給我"), ""),
+		linebot.NewPostbackTemplateAction("近3個月現金匯率", model.NewJsonString("image", "https://beegolinebot.herokuapp.com/currency/ltm/"+code+""), ""),
+		linebot.NewPostbackTemplateAction("附近的分行", model.NewJsonString("text", "請傳送位置訊息給我"), ""),
 		linebot.NewMessageTemplateAction("重新查詢", name),
 	)
 

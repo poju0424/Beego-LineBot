@@ -18,7 +18,7 @@ type PostbackObj struct {
 	Data   string
 }
 
-func NewJString(method, data string) string {
+func NewJsonString(method, data string) string {
 	values := &PostbackObj{method, data}
 	str, err := json.Marshal(values)
 	if err != nil {
