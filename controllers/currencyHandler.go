@@ -38,7 +38,7 @@ func createChart(data *model.RateHistoryStruct) *bytes.Buffer {
 			Show: true,
 		},
 		Width:  1024,
-		Height: 768,
+		Height: 640,
 		XAxis: chart.XAxis{
 			ValueFormatter: chart.TimeValueFormatterWithFormat("2006/01/02"),
 			Style: chart.Style{
