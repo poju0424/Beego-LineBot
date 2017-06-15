@@ -36,11 +36,11 @@ func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func showChinese(string) {
-	str1, _, _ := transform.String(traditionalchinese.Big5.NewEncoder(), "中文")
-	str2, _, _ := transform.String(traditionalchinese.Big5.NewDecoder(), str1)
-
-}
+// func showChinese(string) {
+// 	str1, _, _ := transform.String(traditionalchinese.Big5.NewEncoder(), "中文")
+// 	str2, _, _ := transform.String(traditionalchinese.Big5.NewDecoder(), str1)
+// 	log.Print(str1, str2)
+// }
 
 func createChart(data *model.RateHistoryStruct) *bytes.Buffer {
 	graph := chart.Chart{
