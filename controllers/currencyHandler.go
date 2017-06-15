@@ -10,13 +10,17 @@ import (
 
 	"github.com/shopspring/decimal"
 	chart "github.com/wcharczuk/go-chart"
+	"golang.org/x/text/encoding/traditionalchinese"
+	"golang.org/x/text/transform"
 )
 
 type CurrencyHandler struct{}
 
 func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	params := strings.Split(r.RequestURI, "/")
-
+	str1, _, _ := transform.String(traditionalchinese.Big5.NewEncoder(), "中文")
+	str2, _, _ := transform.String(traditionalchinese.Big5.NewDecoder(), str1)
+	log.Print(str1, str2)
 	if len(params) == 4 {
 		time := params[2]
 		name := params[3]
@@ -29,6 +33,12 @@ func (*CurrencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+
+}
+
+func showChinese(string) {
+	str1, _, _ := transform.String(traditionalchinese.Big5.NewEncoder(), "中文")
+	str2, _, _ := transform.String(traditionalchinese.Big5.NewDecoder(), str1)
 
 }
 

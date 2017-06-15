@@ -165,6 +165,10 @@
 			"path": "golang.org/x/net/html/atom",
 			"revision": "c9b681d35165f1995d6f3034e61f8761d4b90c99",
 			"revisionTime": "2017-05-10T00:04:54Z"
+		},
+		{
+			"path": "golang.org/x/text",
+			"revision": ""
 		}
 	],
 	"rootPath": "Beego-LineBot"
