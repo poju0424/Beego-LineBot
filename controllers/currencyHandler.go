@@ -42,7 +42,7 @@ func showChinese() string {
 
 func createChart(data *model.RateHistoryStruct) *bytes.Buffer {
 	graph := chart.Chart{
-		Title: data.CurrencyName + "(" + data.Date[0].Format("Jan 2 2006") + ")",
+		Title: showChinese() + "(" + data.Date[0].Format("Jan 2 2006") + ")",
 		TitleStyle: chart.Style{
 			Show: true,
 		},
@@ -68,7 +68,7 @@ func createChart(data *model.RateHistoryStruct) *bytes.Buffer {
 		},
 		Series: []chart.Series{
 			chart.TimeSeries{
-				Name:    showChinese(),
+				Name:    string("CashSell"),
 				XValues: data.Date,
 				YValues: data.CashSell,
 				Style: chart.Style{
