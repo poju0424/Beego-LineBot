@@ -22,5 +22,6 @@ func (*SensorDataHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err1 != nil {
 		log.Print(err)
 	}
+	log.Print(123)
 	log.Print(resp)
 }
