@@ -2,6 +2,7 @@ package model
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -15,8 +16,8 @@ func GetNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 	longitude := strconv.FormatFloat(lon, 'f', -1, 64)
 	name := "臺灣銀行股份有限公司"
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
-	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&types=bank&rankby=distance"
-
+	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&type=bank&rankby=distance"
+	log.Print(url)
 	type LatLng struct {
 		Lat float64 `json:"lat"`
 		Lng float64 `json:"lng"`
