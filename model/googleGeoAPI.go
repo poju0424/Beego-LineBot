@@ -17,7 +17,7 @@ func GetNerybyBank(lat, lon float64) (templateMsg linebot.Message) {
 	name := "臺灣銀行股份有限公司"
 	APIKey := os.Getenv("GoogleMapNearbySearchKey")
 	url := "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&name=" + name + "&key=" + APIKey + "&language=zh-TW&type=bank&rankby=distance"
-	log.Print(url)
+
 	type LatLng struct {
 		Lat float64 `json:"lat"`
 		Lng float64 `json:"lng"`
@@ -100,7 +100,7 @@ func getPhoto(ref string) (url string) {
 func countDistance(origin, destination string) (output string) {
 	APIkey := "AIzaSyAECvkl4TXtH9mXLJM-JvZ6LP6brfhYFDY"
 	url := "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origin + "&destinations=" + destination + "&language=zh-TW&key=" + APIkey + ""
-
+	log.Print(url)
 	type Distance struct {
 		Text  string `json:"text"`
 		Value int    `json:"value"`
