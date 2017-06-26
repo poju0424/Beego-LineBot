@@ -1,19 +1,16 @@
 package controllers
 
 import (
-	"Beego-LineBot/model"
 	"log"
 	"net/http"
-	"strconv"
-	"strings"
 )
 
 type PushHandler struct{}
 
 func (*PushHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	log.Print(r.Body)
-	log.Print(.RequestURI)
-	params := strings.Split(r.RequestURI, "/")
+	log.Print(r.RequestURI)
+	// params := strings.Split(r.RequestURI, "/")
 	// if len(params) == 4 {
 	// 	time := params[2]
 	// 	name := params[3]
@@ -24,7 +21,7 @@ func (*PushHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// 	if _, err := w.Write(buff.Bytes()); err != nil {
 	// 		log.Print(err)
 	// 	}
-		return
+	return
 	// }
 
 }
